@@ -18,6 +18,18 @@ body {
     margin:0;
 }
 
+md-input-container {
+    width: 100%;
+}
+
+md-select {
+    width: 100%;
+}
+
+md-slide-toggle {
+    width:100%;
+}
+
 .container {
 	width:90%;
 	margin:auto;
