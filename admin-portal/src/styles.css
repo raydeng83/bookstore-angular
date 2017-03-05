@@ -18,6 +18,16 @@ body {
     margin:0;
 }
 
-.primary {
-	background:#3175e2;
+.container {
+	width:90%;
+	margin:auto;
 }
+
+.full-width {
+	width: 100%;
+}
+
+.primary {
+	color:white;
+}
+

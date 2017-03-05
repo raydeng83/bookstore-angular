@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from "../../services/login.service";
-import {CookieService} from "angular2-cookie/services/cookies.service";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +20,7 @@ export class LoginComponent implements OnInit {
         console.log(res);
         localStorage.setItem("xAuthToken", res.json().token);
         this.loggedIn=true;
-        // location.reload();
+        location.reload();
       },
       error=>{
         this.loggedIn=false;
