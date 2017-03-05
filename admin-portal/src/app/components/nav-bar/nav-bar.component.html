@@ -1,3 +1,42 @@
-<p>
-  nav-bar works!
-</p>
+<md-menu #appMenu="mdMenu">
+  <button md-menu-item> Settings </button>
+  <button md-menu-item> Help </button>
+</md-menu>
+
+<button md-icon-button [mdMenuTriggerFor]="appMenu">
+   <md-icon>more_vert</md-icon>
+</button>
+
+<md-select placeholder="Favorite food">
+  <md-option *ngFor="let food of foods" [value]="food.value">
+    {{ food.viewValue }}
+  </md-option>
+</md-select>
+
+<md-grid-list cols="4" rowHeight="100px">
+  <md-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+    {{tile.text}}
+  </md-grid-tile>
+</md-grid-list>
+
+<div class="example-container">
+  <h3>Normal Buttons</h3>
+  <div class="button-row">
+    <button md-button>Flat button</button>
+    <button md-raised-button>Raised button</button>
+    <button md-fab><md-icon>check</md-icon></button>
+    <button md-mini-fab><md-icon>check</md-icon></button>
+  </div>
+
+  <h3>Link Buttons</h3>
+  <div class="example-button-row">
+    <a md-button routerLink=".">Flat button</a>
+    <a md-raised-button routerLink=".">Raised button</a>
+    <a md-fab routerLink="."><md-icon>check</md-icon></a>
+    <a md-mini-fab routerLink="."><md-icon>check</md-icon></a>
+  </div>
+</div>
