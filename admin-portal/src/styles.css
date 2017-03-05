@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+@import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
 
 .box {
 	border: 1px solid black;
@@ -15,4 +15,9 @@ hr {
 
 body {
     font-family: Tahoma, Serif;
+    margin:0;
+}
+
+.primary {
+	background:#3175e2;
 }

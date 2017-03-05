@@ -1,0 +1,33 @@
+<md-grid-list cols="6" [style.margin-top]="'20px'">
+    <md-grid-tile [colspan]="1"></md-grid-tile>
+    <md-grid-tile [colspan]="4">
+        <md-card style="width: 100%;">
+            <md-card-content>
+                <div [hidden]="loggedIn">
+                    <form (ngSubmit)="onSubmit()" >
+                        <h3>
+                        <md-input-container class="full-width">
+                            <input type="text" mdInput [(ngModel)]="credential.username" name='username' id='username' placeholder="Your Username">
+                        </md-input-container>
+                        </h3>
+
+                        <h3>
+                        <md-input-container class="full-width">
+                            <input type="password" mdInput [(ngModel)]="credential.password" name='password' id='password' placeholder="Your Password">
+                        </md-input-container>
+                        </h3>
+                        <h3>
+                        <div class='row'>
+                            <button md-raised-button type="submit" class="primary" [style.color]="'white'">Login</button>
+                        </div>
+                        </h3>
+                    </form>
+                </div>
+                <div [hidden]="!loggedIn">
+                    <h2>You have logged in!</h2>
+                </div>
+            </md-card-content>
+        </md-card>
+    </md-grid-tile>
+    <md-grid-tile [colspan]="1"></md-grid-tile>
+</md-grid-list>
