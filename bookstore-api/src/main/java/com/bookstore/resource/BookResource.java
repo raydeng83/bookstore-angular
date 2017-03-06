@@ -5,6 +5,7 @@ import com.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -112,6 +113,15 @@ public class BookResource {
     ) {
         Book book = bookService.findOne(id);
         return book;
+    }
+
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public ResponseEntity remove(
+            @RequestBody String id, Model model
+    ){
+        bookService.removeOne(Long.parseLong(id));
+
+        return new ResponseEntity("Remove Success!", HttpStatus.OK);
     }
 
 }

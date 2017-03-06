@@ -68,4 +68,8 @@ public class BookServiceImpl implements BookService{
 
         return activeBookList;
     }
+
+    public void removeOne(Long id) {
+        bookRepository.delete(id);
+    }
 }

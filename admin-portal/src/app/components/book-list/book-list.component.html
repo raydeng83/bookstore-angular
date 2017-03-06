@@ -27,7 +27,7 @@
         <td>{{book.active}}</td>
         <td>
           <input hidden="hidden" name="id" />
-          <button md-button class='mat-warn' type="submit" value="delete"><span
+          <button md-button (click)="openDialog(book)" value="delete"><span
             class="fa fa-times"></span> delete
           </button>
         </td>
@@ -37,3 +37,4 @@
   </div>
   <button md-raised-button class="mat-warn" id="deleteSelected">Delete Selected</button>
 </div>
+

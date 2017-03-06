@@ -19,4 +19,6 @@ public interface BookService {
 
     List<Book> blurrySearch(String title);
 
+    void removeOne(Long id);
+
 }
