@@ -3,7 +3,7 @@
     <table id="bookListTable" class="table bordered highlight">
       <thead>
       <tr>
-        <th><input type="checkbox"/></th>
+        <th><input type="checkbox" (change)="updateSelected($event.target.checked)" /></th>
         <th>Title</th>
         <th>Author</th>
         <th>Category</th>
@@ -17,7 +17,7 @@
       <tr *ngFor="let book of bookList">
         <td>
           <input hidden="hidden" name="id"  />
-          <input type="checkbox" [checked]="checked" (change)="updateRemoveBookList($event.target.checked, book)" />
+          <input type="checkbox" [checked]="allChecked" (change)="updateRemoveBookList($event.target.checked, book)" />
         </td>
         <td><a (click)="onSelect(book)" style="cursor: pointer">{{book.title}}</a></td>
         <td>{{book.author}}</td>

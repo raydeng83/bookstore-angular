@@ -15,7 +15,9 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 export class BookListComponent implements OnInit {
 
   private selectedBook : Book;
+  private checked:boolean;
   private bookList: Book[];
+  private allChecked:boolean;
   private removeBookList: Book[]=new Array();
 
   constructor(private removeBookService:RemoveBookService, private getBookListService: GetBookListService, private router: Router, public dialog: MdDialog) {
@@ -48,7 +50,7 @@ export class BookListComponent implements OnInit {
           err => {
             console.log(err);
           }
-          
+
           );
       }
     });
@@ -63,6 +65,16 @@ export class BookListComponent implements OnInit {
     console.log(this.removeBookList);
   }
 
+  updateSelected(checked:boolean){
+    if(checked) {
+      this.allChecked=true;
+      this.removeBookList=this.bookList;
+    } else {
+      this.allChecked=false;
+      this.removeBookList=[];
+    }
+  }
+
   removeSelectedBooks() {
     let dialogRef = this.dialog.open(DialogResultExampleDialog);
     dialogRef.afterClosed().subscribe(result => {
@@ -73,7 +85,7 @@ export class BookListComponent implements OnInit {
             },
             err => {
             }
-            
+
             );
         };
         location.reload();

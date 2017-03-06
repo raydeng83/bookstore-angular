@@ -19,8 +19,8 @@
       <file leaf-file-name="BookResource.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bookstore/resource/BookResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="124" column="5" lean-forward="true" selection-start-line="124" selection-start-column="5" selection-end-line="124" selection-end-column="5" />
+            <state relative-caret-position="420">
+              <caret line="59" column="9" lean-forward="true" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -841,12 +841,12 @@
       <workItem from="1486538831944" duration="450000" />
       <workItem from="1488378219247" duration="650000" />
       <workItem from="1488461561430" duration="18419000" />
-      <workItem from="1488731165185" duration="7270000" />
+      <workItem from="1488731165185" duration="8339000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69282000" />
+    <option name="totallyTimeSpent" value="70351000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="71" y="38" width="1663" height="961" extended-state="0" />
@@ -1257,8 +1257,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bookstore/resource/BookResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="124" column="5" lean-forward="true" selection-start-line="124" selection-start-column="5" selection-end-line="124" selection-end-column="5" />
+        <state relative-caret-position="420">
+          <caret line="59" column="9" lean-forward="true" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
           <folding />
         </state>
       </provider>
