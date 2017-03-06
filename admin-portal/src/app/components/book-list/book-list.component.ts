@@ -16,6 +16,7 @@ export class BookListComponent implements OnInit {
 
   private selectedBook : Book;
   private bookList: Book[];
+  private removeBookList: Book[]=new Array();
 
   constructor(private removeBookService:RemoveBookService, private getBookListService: GetBookListService, private router: Router, public dialog: MdDialog) {
     this.getBookListService.getBookList().subscribe(
@@ -26,7 +27,7 @@ export class BookListComponent implements OnInit {
       err => {
         console.log(err);
       }
-    );
+      );
   }
 
   onSelect(book:Book) {
@@ -40,18 +41,45 @@ export class BookListComponent implements OnInit {
       console.log(result);
       if(result=="yes") {
         this.removeBookService.sendBook(book.id).subscribe(
-      res => {
-        console.log(res);
-        location.reload();
-      },
-      err => {
-        console.log(err);
+          res => {
+            console.log(res);
+            location.reload();
+          },
+          err => {
+            console.log(err);
+          }
+          
+          );
       }
-      
-    );
+    });
   }
-});
-}
+
+  updateRemoveBookList(checked:boolean, book:Book) {
+    if(checked){
+      this.removeBookList.push(book);
+    } else {
+      this.removeBookList.splice(this.removeBookList.indexOf(book),1);
+    }
+    console.log(this.removeBookList);
+  }
+
+  removeSelectedBooks() {
+    let dialogRef = this.dialog.open(DialogResultExampleDialog);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result=="yes") {
+        for (let book of this.removeBookList) {
+          this.removeBookService.sendBook(book.id).subscribe(
+            res => {
+            },
+            err => {
+            }
+            
+            );
+        };
+        location.reload();
+      }
+    });
+  }
 
   ngOnInit() {
 

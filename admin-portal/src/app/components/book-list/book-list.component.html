@@ -17,7 +17,7 @@
       <tr *ngFor="let book of bookList">
         <td>
           <input hidden="hidden" name="id"  />
-          <input class="checkboxBook" type="checkbox"/>
+          <input type="checkbox" [checked]="checked" (change)="updateRemoveBookList($event.target.checked, book)" />
         </td>
         <td><a (click)="onSelect(book)" style="cursor: pointer">{{book.title}}</a></td>
         <td>{{book.author}}</td>
@@ -35,6 +35,6 @@
       </tbody>
     </table>
   </div>
-  <button md-raised-button class="mat-warn" id="deleteSelected">Delete Selected</button>
+  <button md-raised-button class="mat-warn" id="deleteSelected" (click)="removeSelectedBooks()">Delete Selected</button>
 </div>
 
