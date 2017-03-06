@@ -21,6 +21,9 @@ import {GetBookListService} from "./services/get-book-list.service";
 import {GetBookService} from "./services/get-book.service";
 // import { EditBookComponent } from './components/edit-book/edit-book.component';
 import {EditBookService} from "./services/edit-book.service";
+import { BookListComponent } from './components/book-list/book-list.component';
+import { EditBookComponent } from './components/edit-book/edit-book.component';
+import { ViewBookComponent } from './components/view-book/view-book.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import {EditBookService} from "./services/edit-book.service";
     NavBarComponent,
     LoginComponent,
     AddNewBookComponent,
+    BookListComponent,
+    EditBookComponent,
+    ViewBookComponent,
     // BookListComponent,
     // BookListComponent,
     // ViewBookComponent,

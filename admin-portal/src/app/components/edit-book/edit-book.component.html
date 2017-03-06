@@ -1,0 +1,120 @@
+<div class="container">
+    <div [hidden]="bookAdded">
+        <h3 style="margin-top: 30px;">Update Book Information <span style="font-size: small"> * is a required field</span>
+      </h3>
+        <form (ngSubmit)="onSubmit()">
+            <md-grid-list cols="4" rowHeight="60px">
+                <md-grid-tile [colspan]="4" [rowspan]="1">
+                    <md-input-container>
+                        <input mdInput id="title" type="text" required [(ngModel)]="book.title" name="title" placeholder="Title">
+                    </md-input-container>
+                </md-grid-tile>
+            </md-grid-list>
+            <md-grid-list cols="4" rowHeight="60px">
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    <md-input-container>
+                        <input mdInput id="author" type="text" required [(ngModel)]="book.author" name="author" placeholder="Author">
+                    </md-input-container>
+                </md-grid-tile>
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    <md-input-container>
+                        <input mdInput id="title" type="text" required [(ngModel)]="book.publisher" name="publisher" placeholder="Publisher">
+                    </md-input-container>
+                </md-grid-tile>
+            </md-grid-list>
+            <md-grid-list cols="4" rowHeight="60px">
+                <md-grid-tile [colspan]="4" [rowspan]="1">
+                    <md-input-container>
+                        <input mdInput id="publicationDate" type="date" class="datepicker" [(ngModel)]="book.publicationDate" name="publicationDate" placeholder="Publication Date">
+                    </md-input-container>
+                </md-grid-tile>
+            </md-grid-list>
+            <md-grid-list cols="4" rowHeight="60px">
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    <md-select placeholder="Category" id="category" name="category" [(ngModel)]="book.category">
+                        <md-option value="Management">Management</md-option>
+                        <md-option value="Fiction">Fiction</md-option>
+                        <md-option value="Engineering">Engineering</md-option>
+                        <md-option value="Programming">Programming</md-option>
+                        <md-option value="Arts &amp; Literature">Arts &amp; Literature</md-option>
+                    </md-select>
+                </md-grid-tile>
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    <md-select placeholder="Format" iid="format" name="format" [(ngModel)]="book.format">
+                        <md-option value="paperback">Paperback</md-option>
+                        <md-option value="hardcover">Hardcover</md-option>
+                    </md-select>
+                </md-grid-tile>
+            </md-grid-list>
+            <md-grid-list cols="4" rowHeight="60px">
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    <md-input-container>
+                        <input mdInput id="pageNumber" type="number" name="numberOfPages" class="validate" step="1" [(ngModel)]="book.numberOfPages" placeholder="Number of Pages">
+                    </md-input-container>
+                </md-grid-tile>
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    <md-input-container>
+                        <input mdInput id="isbn" type="text" class="validate" [(ngModel)]="book.isbn" name="isbn" placeholder="ISBN">
+                    </md-input-container>
+                </md-grid-tile>
+            </md-grid-list>
+            <md-grid-list cols="4" rowHeight="60px">
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    $&nbsp;
+                    <md-input-container>
+                        <input mdInput id="listPrice" type="number" name="listPrice" class="validate" step="0.01" [(ngModel)]="book.listPrice" placeholder="List Price">
+                    </md-input-container>
+                </md-grid-tile>
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    $&nbsp;
+                    <md-input-container>
+                        <input mdInput id="ourPrice" type="number" name="ourPrice" class="validate" step="0.01" [(ngModel)]="book.ourPrice" placeholder="Our Price">
+                    </md-input-container>
+                </md-grid-tile>
+            </md-grid-list>
+            <md-grid-list cols="4" rowHeight="60px">
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    <md-input-container>
+                        <input mdInput id="shippingWeight" type="number" name="shippingWeight" class="validate" step="0.01" [(ngModel)]="book.shippingWeight" placeholder="Shipping Weight">
+                    </md-input-container>&nbsp;ounces&nbsp;
+                </md-grid-tile>
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    <md-select placeholder="Language" iid="format" name="format" [(ngModel)]="book.format">
+                        <md-option value="english">English</md-option>
+                        <md-option value="spanish">Spanish</md-option>
+                    </md-select>
+                </md-grid-tile>
+            </md-grid-list>
+            <md-grid-list cols="4" rowHeight="60px">
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    <md-input-container>
+                        <input mdInput id="inStockNumber" type="number" name="inStockNumber" class="validate" step="0.01" [(ngModel)]="book.inStockNumber" placeholder="Numbers In Stock">
+                    </md-input-container>
+                </md-grid-tile>
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    &nbsp;
+                    <md-slide-toggle [color]="color" [checked]="checked" [disabled]="disabled" [(ngModel)]="book.active" name="active">
+                        Active
+                    </md-slide-toggle>
+                </md-grid-tile>
+            </md-grid-list>
+            <md-input-container>
+                <textarea mdInput id="title" [(ngModel)]="book.description" name="description" placeholder="Description"></textarea>
+            </md-input-container>
+            Image &nbsp;
+            <input id="title" type="file" id="bookImage" name="bookImage" (change)="uploadImageService.fileChangeEvent($event)">
+            <br><br>
+            <md-grid-list cols="20" rowHeight="60px">
+                <md-grid-tile [colspan]="3" [rowspan]="1">
+                    <button class="mat-primary" md-raised-button type="submit">Update Book</button>
+                </md-grid-tile>
+                <md-grid-tile [colspan]="2" [rowspan]="1">
+                    <a class="mat-warn" md-raised-button routerLink="/bookList">Cancel</a>
+                </md-grid-tile>
+            </md-grid-list>
+        </form>
+    </div>
+    <div class="row" [hidden]="!bookAdded">
+            <h3>Book updated successfully!</h3>
+    </div>
+</div>
