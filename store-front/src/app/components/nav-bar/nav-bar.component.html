@@ -24,7 +24,16 @@
                 </form>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a th:href="@{/shoppingCart/cart}">SHOPPING CART</a></li>
+                <li>
+                    <md-select placeholder="Favorite food">
+                        <md-option>
+                            test1
+                        </md-option>
+                        <md-option>
+                            test2
+                        </md-option>
+                    </md-select>
+                </li>
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">LOGOUT</a></li>
             </ul>
         </div>
