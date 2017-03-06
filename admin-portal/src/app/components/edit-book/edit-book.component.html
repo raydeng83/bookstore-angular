@@ -1,5 +1,5 @@
 <div class="container">
-    <div [hidden]="bookAdded">
+    <div [hidden]="bookUpdated">
         <h3 style="margin-top: 30px;">Update Book Information <span style="font-size: small"> * is a required field</span>
       </h3>
         <form (ngSubmit)="onSubmit()">
@@ -40,7 +40,7 @@
                     </md-select>
                 </md-grid-tile>
                 <md-grid-tile [colspan]="2" [rowspan]="1">
-                    <md-select placeholder="Format" iid="format" name="format" [(ngModel)]="book.format">
+                    <md-select placeholder="Format" id="format" name="format" [(ngModel)]="book.format">
                         <md-option value="paperback">Paperback</md-option>
                         <md-option value="hardcover">Hardcover</md-option>
                     </md-select>
@@ -79,7 +79,7 @@
                     </md-input-container>&nbsp;ounces&nbsp;
                 </md-grid-tile>
                 <md-grid-tile [colspan]="2" [rowspan]="1">
-                    <md-select placeholder="Language" iid="format" name="format" [(ngModel)]="book.format">
+                    <md-select placeholder="Language" id="language" name="language" [(ngModel)]="book.language">
                         <md-option value="english">English</md-option>
                         <md-option value="spanish">Spanish</md-option>
                     </md-select>
@@ -114,7 +114,7 @@
             </md-grid-list>
         </form>
     </div>
-    <div class="row" [hidden]="!bookAdded">
+    <div class="row" [hidden]="!bookUpdated">
             <h3>Book updated successfully!</h3>
     </div>
 </div>
