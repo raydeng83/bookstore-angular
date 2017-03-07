@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.*;
 
 /**
@@ -173,4 +174,12 @@ public class UserResource {
         return new ResponseEntity("Email sent!", HttpStatus.OK);
 
     }
+
+    @RequestMapping("/getCurrentUser")
+    public User getCurrentUser(Principal principal){
+        User user = userService.findByUsername(principal.getName());
+
+        return user;
+    }
+
 }

@@ -3,6 +3,7 @@ import {AppConst} from '../../constants/app-const';
 import {Router} from "@angular/router";
 import {LoginService} from "../../services/login.service";
 import {UserService} from "../../services/user.service";
+import {User} from '../../models/user';
 
 @Component({
   selector: 'app-my-profile',
@@ -25,6 +26,8 @@ export class MyProfileComponent implements OnInit {
   private emailNotExists: boolean = false;
   private forgetPasswordEmailSent: boolean = false;
   private recoverEmail:string;
+
+  private user: User = new User();
 
   constructor (private loginService: LoginService, private userService: UserService, private router: Router){
   }
@@ -91,4 +94,15 @@ export class MyProfileComponent implements OnInit {
       }
     );
 
+    this.userService.getCurrentUser().subscribe(
+    	res => {
+    		console.log(res.json());
+    		this.user=res.json();
+    	},
+    	error => {
+    		console.log(error);
+    	}
+    );
+
+}
 }
