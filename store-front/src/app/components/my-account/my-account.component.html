@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-8">
+            <h2 class="section-headline"><span>My Account</span></h2>
+        </div>
+        <div class="col-xs-4">
+            <img src="../../../assets/image/logo.png" class="img-responsive right" style="width:400px; z-index: 1;" />
+        </div>
+        <img class="img-responsive" src="../../../assets/image/wood.png" style="position: absolute;margin-top: 90px;z-index: -2;" />
+    </div>
+    <hr style="position: absolute; width:85%; height:6px; background-color: #333; z-index: -1; margin-top: -170px " />
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-xs-3"></div>
+        <div class="col-xs-9">
+            <div class="panel-group">
+                <div class="panel panel-default panel-faq" style="border: none;">
+                    <div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
+                        <md-tab-group>
+                            <md-tab label="New Account">
+                                <div style="margin-top:20px;">
+                                    <div class="alert alert-info" *ngIf="emailSent">An email has been sent to email address you just registered. Please validate your email address and update your password info.</div>
+                                    <form (ngSubmit)="onSubmit()">
+                                        <div class="form-group">
+                                            <label for="newUsername">Username *</label>&nbsp;<span *ngIf="usernameExists" style="color:red;">Username already exists. Choose a different one.</span>
+                                            <input required="required" type="text" class="form-control" id="newUsername" name="username" [(ngModel)]="username" />
+                                            <p style="color: #828282;"> Enter your username, special charaters are not allowed.
+                                            </p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email address *</label>&nbsp;<span *ngIf="emailExists" style="color:red;">Email already exists. Choose a different one.</span>
+                                            <input required="required" type="email" class="form-control" id="email" name="email" [(ngModel)]="email" />
+                                            <p style="color: #828282;"> A valid e-mail address. All e-mails from the system will be sent to this address. The e-mail address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by e-mail.</p>
+                                        </div>
+                                        <button md-raised-button type="submit" class="mat-primary">Create new account</button>
+                                    </form>
+                                </div>
+                            </md-tab>
+                            <md-tab label="Login">
+                                <div style="margin-top:20px;">
+                                    <div *ngIf="loginError" style="color:red;">Incorrect username or password.</div>
+                                    <form (ngSubmit)="onSubmit()">
+                                        <div class="form-group">
+                                            <label for="username">Username *</label>
+                                            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="credential.username" required="required" autofocus="autofocus" />
+                                            <p style="color: #828282;"> Enter your username</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password *</label>
+                                            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="credential.password" required="required" />
+                                            <p style="color: #828282;"> Enter the password that accompanies your username
+                                            </p>
+                                        </div>
+                                        <button md-raised-button type="submit" class="mat-primary">Log in</button>
+                                    </form>
+                                </div>
+                            </md-tab>
+                            <md-tab label="Forget Password">Content 2</md-tab>
+                        </md-tab-group>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
