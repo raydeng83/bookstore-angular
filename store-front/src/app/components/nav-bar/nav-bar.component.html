@@ -20,7 +20,8 @@
                 <li>
                     
                 </li>
-                <li ><a md-button routerLink="/myAccount" routerLinkActive="active">MY ACCOUNT</a></li>
+                <li *ngIf="!loggedIn" ><a md-button routerLink="/myAccount" routerLinkActive="active">MY ACCOUNT</a></li>
+                <li *ngIf="loggedIn"><a md-button (click)="logout()">LOGOUT</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->

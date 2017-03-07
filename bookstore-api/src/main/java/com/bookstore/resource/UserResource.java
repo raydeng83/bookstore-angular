@@ -133,4 +133,44 @@ public class UserResource {
 
         return new ResponseEntity("User Added Successfully!", HttpStatus.OK);
     }
+
+    @RequestMapping("/forgetPassword")
+    public ResponseEntity forgetPassword(@RequestBody String email,
+                                 HttpServletRequest request,
+                                 Model model) {
+        model.addAttribute("classActiveForgetPassword", "true");
+
+        User user = userService.findByEmail(email);
+
+        if (user == null) {
+            model.addAttribute("emailNotExists", true);
+            return new ResponseEntity("Email not found!", HttpStatus.BAD_REQUEST);
+
+        }
+
+        String password = SecurityUtility.randomPassword();
+
+        String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
+        user.setPassword(encryptedPassword);
+
+        userService.save(user);
+
+        String token = UUID.randomUUID().toString();
+        userService.createPasswordResetTokenForUser(user, token);
+
+        String appUrl =
+                "http://" + request.getServerName() +
+                        ":" + request.getServerPort() +
+                        request.getContextPath();
+
+        SimpleMailMessage newEmail =
+                mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
+
+        mailSender.send(newEmail);
+
+        model.addAttribute("forgetPasswordEmailSent", true);
+
+        return new ResponseEntity("Email sent!", HttpStatus.OK);
+
+    }
 }

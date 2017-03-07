@@ -5,11 +5,11 @@ import {LoginService} from "../../services/login.service";
 import {UserService} from "../../services/user.service";
 
 @Component({
-  selector: 'app-my-account',
-  templateUrl: './my-account.component.html',
-  styleUrls: ['./my-account.component.css']
+  selector: 'app-my-profile',
+  templateUrl: './my-profile.component.html',
+  styleUrls: ['./my-profile.component.css']
 })
-export class MyAccountComponent implements OnInit {
+export class MyProfileComponent implements OnInit {
 
   private serverPath = AppConst.serverPath;
   private loginError:boolean = false;
@@ -90,6 +90,5 @@ export class MyAccountComponent implements OnInit {
         this.loggedIn=false;
       }
     );
-  }
 
 }
