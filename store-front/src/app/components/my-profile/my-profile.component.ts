@@ -31,7 +31,9 @@ export class MyProfileComponent implements OnInit {
 
   private user: User = new User();
   private userPayment: UserPayment = new UserPayment();
-  private userBilling: UserBilling = new UserBilling();  
+  private userBilling: UserBilling = new UserBilling();
+  private userPaymentList: UserPayment[] = [];  
+  private stateList: string[] = [];
 
   constructor (private loginService: LoginService, private userService: UserService, private router: Router){
   }
@@ -102,11 +104,15 @@ export class MyProfileComponent implements OnInit {
     	res => {
     		console.log(res.json());
     		this.user=res.json();
+    		this.userPaymentList = this.user.userPaymentList;
     	},
     	error => {
     		console.log(error);
     	}
     );
 
+    for (let s in AppConst.usStates) {
+    	this.stateList.push(s);
+    }
 }
 }
