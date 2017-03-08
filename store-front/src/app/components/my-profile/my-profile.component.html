@@ -15,7 +15,7 @@
             <div class="panel-group">
                 <div class="panel panel-default panel-faq" style="border: none;">
                     <div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
-                        <md-tab-group>
+                        <md-tab-group [selectedIndex]="selectedProfileTab">
                             <md-tab label="Edit">
                                 <div style="margin-top:20px;">
                                     <div class="alert alert-danger" *ngIf="incorrectPassword">
@@ -73,7 +73,7 @@
                                 <br>
                                 <br>
                                 <div>
-                                    <md-tab-group>
+                                    <md-tab-group [selectedIndex]="selectedBillingTab">
                                         <md-tab label="List of Credit Cards">
                                             <form (ngSubmit)="setDefaultPayment()" method="post">
                                                 <table class="table">
@@ -87,14 +87,14 @@
                                                     <tbody>
                                                         <tr *ngFor="let userPayment of userPaymentList">
                                                             <td>
-                                                                <input type="radio" name="defaultUserPaymentId" [(ngModel)]="userPayment.id" />
+                                                                <input type="radio" name="defaultUserPaymentId" [(ngModel)]="defaultUserPaymentId" [value]="userPayment.id" />
                                                                 <span>default</span>
                                                             </td>
                                                             <td>{{userPayment.cardName}}</td>
                                                             <td>
-                                                                <a><i
+                                                                <a md-button><i
                                                             class="fa fa-pencil"></i></a>
-                                                                <a><i
+                                                                <a md-button (click)="onRemovePayment(userPayment.id)"><i
                                                             class="fa fa-times"></i></a>
                                                             </td>
                                                         </tr>

@@ -36,6 +36,11 @@ export class MyProfileComponent implements OnInit {
   private userPaymentList: UserPayment[] = [];  
   private stateList: string[] = [];
 
+  private selectedProfileTab:number = 0;
+  private selectedBillingTab:number = 0;
+
+  private defaultUserPaymentId:number;
+
   constructor (private paymentService:PaymentService, private loginService: LoginService, private userService: UserService, private router: Router){
   }
 
@@ -46,12 +51,12 @@ export class MyProfileComponent implements OnInit {
         localStorage.setItem("xAuthToken", res.json().token);
         this.loggedIn=true;
         location.reload();
-    	this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
       },
       error=>{
         this.loggedIn=false;
       }
-    );
+      );
   }
 
   onNewAccount() {
@@ -70,7 +75,7 @@ export class MyProfileComponent implements OnInit {
         if (errorMessage==="usernameExists") this.usernameExists=true;
         if (errorMessage==="emailExists") this.emailExists=true;
       }
-    );
+      );
   }
 
   onForgetPassword() {
@@ -88,18 +93,41 @@ export class MyProfileComponent implements OnInit {
         if (errorMessage==="usernameExists") this.usernameExists=true;
         if (errorMessage==="emailExists") this.emailExists=true;
       }
-    );
+      );
   }
 
   onNewPayment () {
     this.paymentService.newPayment(this.userPayment).subscribe(
       res => {
-        console.log(res);
+        location.reload();
       },
       error => {
         console.log(error.text());
       }
-    );
+      );
+  }
+
+  onRemovePayment(id:number) {
+    this.paymentService.removePayment(id).subscribe(
+      res => {
+        location.reload();
+      },
+      error => {
+        console.log(error.text());
+      }
+      );
+  }
+
+  setDefaultPayment() {
+    this.paymentService.setDefaultPayment(this.defaultUserPaymentId).subscribe(
+      res => {
+        console.log(res.text());
+        location.reload();
+      },
+      error => {
+        console.log(error.text());
+      }
+      );
   }
 
   ngOnInit() {
@@ -110,20 +138,24 @@ export class MyProfileComponent implements OnInit {
       error => {
         this.loggedIn=false;
       }
-    );
+      );
 
     this.userService.getCurrentUser().subscribe(
     	res => {
-    		console.log(res.json());
     		this.user=res.json();
-        console.log(this.user);
     		this.userPaymentList = this.user.userPaymentList;
-        console.log(this.userPaymentList);
-    	},
-    	error => {
-    		console.log(error);
-    	}
-    );
+
+        for (let index in this.userPaymentList) {
+          if (this.userPaymentList[index].defaultPayment) {
+            this.defaultUserPaymentId=this.userPaymentList[index].id;
+            return;
+          }
+        }
+      },
+      error => {
+        console.log(error);
+      }
+      );
 
     for (let s in AppConst.usStates) {
     	this.stateList.push(s);
@@ -135,5 +167,5 @@ export class MyProfileComponent implements OnInit {
     this.userPayment.expiryYear="";
     this.userPayment.userBilling = this.userBilling;
 
-}
+  }
 }

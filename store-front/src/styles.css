@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '~@angular/material/core/theming/prebuilt/pink-bluegrey.css';
+@import "../node_modules/font-awesome/css/font-awesome.min.css";
 @import './non-responsive.css';
 /*@import '../node_modules/@swimlane/ngx-datatable/release/index.css';
 @import '../node_modules/@swimlane/ngx-datatable/release/themes/material.css';

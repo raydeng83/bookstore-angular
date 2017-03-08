@@ -3,6 +3,7 @@ package com.bookstore.resource;
 import com.bookstore.domain.User;
 import com.bookstore.domain.UserBilling;
 import com.bookstore.domain.UserPayment;
+import com.bookstore.service.UserPaymentService;
 import com.bookstore.service.UserService;
 import com.bookstore.utility.USConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,23 +29,8 @@ public class PaymentResource {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/listOfCreditCards")
-    public String listOfCreditCards(
-            Model model, Principal principal, HttpServletRequest request
-    ) {
-        User user = userService.findByUsername(principal.getName());
-        model.addAttribute("user", user);
-        model.addAttribute("userPaymentList", user.getUserPaymentList());
-        model.addAttribute("userShippingList", user.getUserShippingList());
-        model.addAttribute("orderList", user.getOrderList());
-
-
-        model.addAttribute("listOfCreditCards", true);
-        model.addAttribute("classActiveBilling", true);
-        model.addAttribute("listOfShippingAddresses", true);
-
-        return "myProfile";
-    }
+    @Autowired
+    private UserPaymentService userPaymentService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity addNewCreditCardPost(
@@ -59,5 +45,29 @@ public class PaymentResource {
         return new ResponseEntity("Payment Added(Updated) Successfully!", HttpStatus.OK);
 
 
+    }
+
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public ResponseEntity removePaymentPost(
+            @RequestBody String id,
+            Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+
+        userPaymentService.removeById(Long.parseLong(id));
+
+        return new ResponseEntity("Payment Removed Successfully!", HttpStatus.OK);
+
+
+    }
+
+    @RequestMapping(value = "/setDefault", method = RequestMethod.POST)
+    public ResponseEntity setDefaultPaymentPost(
+            @RequestBody String id,
+            Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        userService.setUserDefaultPayment(Long.parseLong(id), user);
+
+        return new ResponseEntity("Set Default Payment Successfully!", HttpStatus.OK);
     }
 }
