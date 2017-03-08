@@ -40,6 +40,7 @@ export class MyProfileComponent implements OnInit {
   private selectedBillingTab:number = 0;
 
   private defaultUserPaymentId:number;
+  private defaultPaymentSet:boolean;
 
   constructor (private paymentService:PaymentService, private loginService: LoginService, private userService: UserService, private router: Router){
   }
@@ -103,7 +104,8 @@ export class MyProfileComponent implements OnInit {
   onNewPayment () {
     this.paymentService.newPayment(this.userPayment).subscribe(
       res => {
-        location.reload();
+        this.getCurrentUser();
+        this.selectedBillingTab = 0;
       },
       error => {
         console.log(error.text());
@@ -120,7 +122,8 @@ export class MyProfileComponent implements OnInit {
   onRemovePayment(id:number) {
     this.paymentService.removePayment(id).subscribe(
       res => {
-        location.reload();
+        this.getCurrentUser();
+
       },
       error => {
         console.log(error.text());
@@ -129,13 +132,35 @@ export class MyProfileComponent implements OnInit {
   }
 
   setDefaultPayment() {
+    this.defaultPaymentSet=false;
     this.paymentService.setDefaultPayment(this.defaultUserPaymentId).subscribe(
       res => {
-        console.log(res.text());
-        location.reload();
+        this.getCurrentUser();
+        this.defaultPaymentSet=true;
+        // this.selectedProfileTab = 2;
+        // this.selectedBillingTab = 0;
       },
       error => {
         console.log(error.text());
+      }
+      );
+  }
+
+  getCurrentUser() {
+    this.userService.getCurrentUser().subscribe(
+      res => {
+        this.user=res.json();
+        this.userPaymentList = this.user.userPaymentList;
+
+        for (let index in this.userPaymentList) {
+          if (this.userPaymentList[index].defaultPayment) {
+            this.defaultUserPaymentId=this.userPaymentList[index].id;
+            return;
+          }
+        }
+      },
+      error => {
+        console.log(error);
       }
       );
   }
@@ -150,22 +175,7 @@ export class MyProfileComponent implements OnInit {
       }
       );
 
-    this.userService.getCurrentUser().subscribe(
-    	res => {
-    		this.user=res.json();
-    		this.userPaymentList = this.user.userPaymentList;
-
-        for (let index in this.userPaymentList) {
-          if (this.userPaymentList[index].defaultPayment) {
-            this.defaultUserPaymentId=this.userPaymentList[index].id;
-            return;
-          }
-        }
-      },
-      error => {
-        console.log(error);
-      }
-      );
+    this.getCurrentUser();
 
     for (let s in AppConst.usStates) {
     	this.stateList.push(s);
@@ -176,6 +186,7 @@ export class MyProfileComponent implements OnInit {
     this.userPayment.expiryMonth="";
     this.userPayment.expiryYear="";
     this.userPayment.userBilling = this.userBilling;
-
+    this.defaultPaymentSet=false;
+    
   }
 }

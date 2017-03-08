@@ -73,6 +73,7 @@
                                 <br>
                                 <br>
                                 <div>
+                                    <p *ngIf="defaultPaymentSet">Default payment set successfully!</p>
                                     <md-tab-group (selectedIndexChange)="selectedIndexChange($event)"  [selectedIndex]="selectedBillingTab">
                                         <md-tab label="List of Credit Cards">
                                             <form (ngSubmit)="setDefaultPayment()" method="post">
