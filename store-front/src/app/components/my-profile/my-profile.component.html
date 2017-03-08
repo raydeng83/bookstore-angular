@@ -73,7 +73,7 @@
                                 <br>
                                 <br>
                                 <div>
-                                    <md-tab-group [selectedIndex]="selectedBillingTab">
+                                    <md-tab-group (selectedIndexChange)="selectedIndexChange($event)"  [selectedIndex]="selectedBillingTab">
                                         <md-tab label="List of Credit Cards">
                                             <form (ngSubmit)="setDefaultPayment()" method="post">
                                                 <table class="table">
@@ -92,7 +92,7 @@
                                                             </td>
                                                             <td>{{userPayment.cardName}}</td>
                                                             <td>
-                                                                <a md-button><i
+                                                                <a md-button (click)="onUpdatePayment(userPayment)"><i
                                                             class="fa fa-pencil"></i></a>
                                                                 <a md-button (click)="onRemovePayment(userPayment.id)"><i
                                                             class="fa fa-times"></i></a>
@@ -196,15 +196,15 @@
                                                                         <option value="" disabled="disabled">
                                                                             --Month--
                                                                         </option>
-                                                                        <option value="01">Jan (01)</option>
-                                                                        <option value="02">Feb (02)</option>
-                                                                        <option value="03">Mar (03)</option>
-                                                                        <option value="04">Apr (04)</option>
-                                                                        <option value="05">May (05)</option>
-                                                                        <option value="06">June (06)</option>
-                                                                        <option value="07">July (07)</option>
-                                                                        <option value="08">Aug (08)</option>
-                                                                        <option value="09">Sep (09)</option>
+                                                                        <option value="1">Jan (01)</option>
+                                                                        <option value="2">Feb (02)</option>
+                                                                        <option value="3">Mar (03)</option>
+                                                                        <option value="4">Apr (04)</option>
+                                                                        <option value="5">May (05)</option>
+                                                                        <option value="6">June (06)</option>
+                                                                        <option value="7">July (07)</option>
+                                                                        <option value="8">Aug (08)</option>
+                                                                        <option value="9">Sep (09)</option>
                                                                         <option value="10">Oct (10)</option>
                                                                         <option value="11">Nov (11)</option>
                                                                         <option value="12">Dec (12)</option>

@@ -44,6 +44,10 @@ export class MyProfileComponent implements OnInit {
   constructor (private paymentService:PaymentService, private loginService: LoginService, private userService: UserService, private router: Router){
   }
 
+  selectedIndexChange(val :number ){
+    this.selectedBillingTab=val;
+  }
+
   onLogin() {
     this.loginService.sendCredential(this.credential.username, this.credential.password).subscribe(
       res=>{
@@ -105,6 +109,12 @@ export class MyProfileComponent implements OnInit {
         console.log(error.text());
       }
       );
+  }
+
+  onUpdatePayment(payment:UserPayment) {
+    this.userPayment = payment;
+    this.userBilling = payment.userBilling;
+    this.selectedBillingTab=1;
   }
 
   onRemovePayment(id:number) {
