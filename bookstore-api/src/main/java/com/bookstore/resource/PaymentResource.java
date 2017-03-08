@@ -48,11 +48,11 @@ public class PaymentResource {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity addNewCreditCardPost(
-            @RequestBody HashMap<String, Object> mapper,
+            @RequestBody UserPayment userPayment,
             Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
-        UserPayment userPayment = (UserPayment) mapper.get("userPayment");
-        UserBilling userBilling = (UserBilling) mapper.get("userBilling");
+
+        UserBilling userBilling = userPayment.getUserBilling();
 
         userService.updateUserBilling(userBilling, userPayment, user);
 

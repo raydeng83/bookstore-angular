@@ -3,6 +3,7 @@ import {AppConst} from '../../constants/app-const';
 import {Router} from "@angular/router";
 import {LoginService} from "../../services/login.service";
 import {UserService} from "../../services/user.service";
+import {PaymentService} from "../../services/payment.service";
 import {User} from '../../models/user';
 import {UserPayment} from '../../models/user-payment';
 import {UserBilling} from '../../models/user-billing';
@@ -35,7 +36,7 @@ export class MyProfileComponent implements OnInit {
   private userPaymentList: UserPayment[] = [];  
   private stateList: string[] = [];
 
-  constructor (private loginService: LoginService, private userService: UserService, private router: Router){
+  constructor (private paymentService:PaymentService, private loginService: LoginService, private userService: UserService, private router: Router){
   }
 
   onLogin() {
@@ -90,6 +91,17 @@ export class MyProfileComponent implements OnInit {
     );
   }
 
+  onNewPayment () {
+    this.paymentService.newPayment(this.userPayment).subscribe(
+      res => {
+        console.log(res);
+      },
+      error => {
+        console.log(error.text());
+      }
+    );
+  }
+
   ngOnInit() {
     this.loginService.checkSession().subscribe(
       res => {
@@ -119,5 +131,6 @@ export class MyProfileComponent implements OnInit {
     this.userPayment.type="";
     this.userPayment.expiryMonth="";
     this.userPayment.expiryYear="";
+    this.userPayment.userBilling = this.userBilling;
 }
 }

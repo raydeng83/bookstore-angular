@@ -13,6 +13,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 import { LoginService } from './services/login.service';
 import { UserService } from './services/user.service';
+import { PaymentService } from './services/payment.service';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 
@@ -33,7 +34,8 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
   ],
   providers: [
     LoginService,
-    UserService
+    UserService,
+    PaymentService
   ],
   bootstrap: [AppComponent]
 })
