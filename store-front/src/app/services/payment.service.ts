@@ -9,6 +9,6 @@ export class PaymentService {
   constructor(private http:Http) { }
 
   getUserPaymentlist() {
-
+  	
   }
 }

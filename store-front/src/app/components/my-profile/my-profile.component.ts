@@ -104,7 +104,7 @@ export class MyProfileComponent implements OnInit {
     	res => {
     		console.log(res.json());
     		this.user=res.json();
-    		this.userPaymentList = this.user.userPaymentList;
+    		// this.userPaymentList = this.user.userPaymentList;
     	},
     	error => {
     		console.log(error);
@@ -114,5 +114,10 @@ export class MyProfileComponent implements OnInit {
     for (let s in AppConst.usStates) {
     	this.stateList.push(s);
     }
+
+    this.userBilling.userBillingState="";
+    this.userPayment.type="";
+    this.userPayment.expiryMonth="";
+    this.userPayment.expiryYear="";
 }
 }

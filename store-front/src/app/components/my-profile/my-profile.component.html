@@ -131,16 +131,15 @@
                                                     <div class="col-xs-4">
                                                         <div class="form-group">
                                                             <label for="billingCity">* City</label>
-                                                            <input type="text" class="form-control" id="billingCity" required="required" placeholder="Your billing shippingAddressCity" name="userBillingCity" [(ngModel)]="userBilling.userBillingCity" />
+                                                            <input type="text" class="form-control" id="billingCity" required="required" placeholder="Your billing city" name="userBillingCity" [(ngModel)]="userBilling.userBillingCity" />
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <div class="form-group">
                                                             <label for="billingState">* State</label>
                                                             <select id="billingState" class="form-control" name="userBillingState" [(ngModel)]="userBilling.userBillingState" required="required">
-                                                                <option value="" disabled="disabled">Please select an option...
-                                                                </option>
-                                                                <option *ngFor="let state : stateList">{{state}}
+                                                                <option value="" disabled>-- state --</option>
+                                                                <option *ngFor="let state of stateList">{{state}}
                                                                 </option>
                                                             </select>
                                                         </div>
@@ -164,6 +163,9 @@
                                                         <div class="form-group">
                                                             <label for="cardType">* Select Card Type:</label>
                                                             <select class="form-control" id="cardType" name="type" [(ngModel)]="userPayment.type">
+                                                                <option value="" disabled="disabled">
+                                                                    -- Card Type --
+                                                                </option>
                                                                 <option value="visa">Visa</option>
                                                                 <option value="mastercard">Mastercard</option>
                                                                 <option value="discover">Discover</option>
@@ -191,7 +193,7 @@
                                                             <div class="row">
                                                                 <div class="col-xs-6">
                                                                     <select class="form-control" name="expiryMonth" required="required" [(ngModel)]="userPayment.expiryMonth">
-                                                                        <option disabled="disabled">
+                                                                        <option value="" disabled="disabled">
                                                                             --Month--
                                                                         </option>
                                                                         <option value="01">Jan (01)</option>
@@ -210,7 +212,7 @@
                                                                 </div>
                                                                 <div class="col-xs-6">
                                                                     <select class="form-control" name="expiryYear" [(ngModel)]="userPayment.expiryYear">
-                                                                        <option disabled="disabled">--Year--
+                                                                        <option value="" disabled="disabled">--Year--
                                                                         </option>
                                                                         <option value="17">2017</option>
                                                                         <option value="18">2018</option>
