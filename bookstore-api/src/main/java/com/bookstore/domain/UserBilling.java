@@ -1,5 +1,7 @@
 package com.bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -23,6 +25,7 @@ public class UserBilling implements Serializable {
     private String userBillingZipcode;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private UserPayment userPayment;
 
     public Long getId() {

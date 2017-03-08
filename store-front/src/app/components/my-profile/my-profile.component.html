@@ -85,7 +85,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr *ngFor="let userPayment : userPaymentList">
+                                                        <tr *ngFor="let userPayment of userPaymentList">
                                                             <td>
                                                                 <input type="radio" name="defaultUserPaymentId" [(ngModel)]="userPayment.id" />
                                                                 <span>default</span>

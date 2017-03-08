@@ -116,7 +116,9 @@ export class MyProfileComponent implements OnInit {
     	res => {
     		console.log(res.json());
     		this.user=res.json();
-    		// this.userPaymentList = this.user.userPaymentList;
+        console.log(this.user);
+    		this.userPaymentList = this.user.userPaymentList;
+        console.log(this.userPaymentList);
     	},
     	error => {
     		console.log(error);
@@ -132,5 +134,6 @@ export class MyProfileComponent implements OnInit {
     this.userPayment.expiryMonth="";
     this.userPayment.expiryYear="";
     this.userPayment.userBilling = this.userBilling;
+
 }
 }
