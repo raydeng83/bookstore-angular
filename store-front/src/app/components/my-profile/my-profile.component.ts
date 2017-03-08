@@ -4,6 +4,8 @@ import {Router} from "@angular/router";
 import {LoginService} from "../../services/login.service";
 import {UserService} from "../../services/user.service";
 import {User} from '../../models/user';
+import {UserPayment} from '../../models/user-payment';
+import {UserBilling} from '../../models/user-billing';
 
 @Component({
   selector: 'app-my-profile',
@@ -28,7 +30,8 @@ export class MyProfileComponent implements OnInit {
   private recoverEmail:string;
 
   private user: User = new User();
-  
+  private userPayment: UserPayment = new UserPayment();
+  private userBilling: UserBilling = new UserBilling();  
 
   constructor (private loginService: LoginService, private userService: UserService, private router: Router){
   }
