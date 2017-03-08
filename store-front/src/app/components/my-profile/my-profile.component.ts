@@ -28,6 +28,7 @@ export class MyProfileComponent implements OnInit {
   private recoverEmail:string;
 
   private user: User = new User();
+  
 
   constructor (private loginService: LoginService, private userService: UserService, private router: Router){
   }
