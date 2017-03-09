@@ -24,7 +24,7 @@
                                     <div class="alert alert-success" *ngIf="updateSuccess">
                                         <strong>Update Success!</strong>
                                     </div>
-                                    <form (ngSubmit)="updateUserInfo" method="post">
+                                    <form (ngSubmit)="onUpdateUserInfo()" >
                                         <input type="hidden" name="id" [(ngModel)]="user.id" />
                                         <div class="bg-info" *ngIf="updateUserInfo">User info updated.</div>
                                         <div class="form-group">
@@ -55,7 +55,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="txtNewPassword">Password</label>&nbsp;<span id="checkPasswordMatch" style="color:red;"></span>
-                                            <input type="password" class="form-control" id="txtNewPassword" name="newPassword" />
+                                            <input type="password" class="form-control" id="txtNewPassword" name="newPassword" [(ngModel)]="newPassword" />
                                         </div>
                                         <div class="form-group">
                                             <label for="txtConfirmPassword">Confirm Password</label>

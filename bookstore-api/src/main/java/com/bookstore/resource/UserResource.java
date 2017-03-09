@@ -1,5 +1,6 @@
 package com.bookstore.resource;
 
+import com.bookstore.config.SecurityConfig;
 import com.bookstore.config.SecurityUtility;
 import com.bookstore.domain.User;
 import com.bookstore.domain.security.PasswordResetToken;
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,23 +48,18 @@ public class UserResource {
 
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
     public ResponseEntity newUser(HttpServletRequest request,
-                                  @RequestBody HashMap<String, String> mapper,
-                          Model model
+                                  @RequestBody HashMap<String, String> mapper
     ) throws Exception {
         String username = mapper.get("username");
         String userEmail = mapper.get("email");
 
 //        check username exists
         if (userService.findByUsername(username) != null) {
-            model.addAttribute("usernameExists", true);
-
             return new ResponseEntity("usernameExists", HttpStatus.BAD_REQUEST);
         }
 
 //        check email address exists
         if (userService.findByEmail(userEmail) != null) {
-            model.addAttribute("emailExists", true);
-
             return new ResponseEntity("emailExists", HttpStatus.BAD_REQUEST);
         }
 
@@ -95,27 +92,23 @@ public class UserResource {
 
         mailSender.send(email);
 
-        model.addAttribute("emailSent", "true");
 
         return new ResponseEntity("User Added Successfully!", HttpStatus.OK);
     }
 
     @RequestMapping("/addNewUser")
     public ResponseEntity addNewUser(
-            Locale locale, Model model,
+            Locale locale,
             @RequestParam("token") String token) {
 
         PasswordResetToken passToken = userService.getPasswordResetToken(token);
         if (passToken == null) {
-            String message = "Invalid Token.";
-            model.addAttribute("message", message);
             return new ResponseEntity("Can't Add User!", HttpStatus.BAD_REQUEST);
 
         }
 
         Calendar cal = Calendar.getInstance();
         if ((passToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            model.addAttribute("message", "Token has expired.");
             return new ResponseEntity("Can't Add User!", HttpStatus.BAD_REQUEST);
 
         }
@@ -130,21 +123,18 @@ public class UserResource {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        model.addAttribute("user", user);
 
         return new ResponseEntity("User Added Successfully!", HttpStatus.OK);
     }
 
     @RequestMapping("/forgetPassword")
     public ResponseEntity forgetPassword(@RequestBody String email,
-                                 HttpServletRequest request,
-                                 Model model) {
-        model.addAttribute("classActiveForgetPassword", "true");
+                                         HttpServletRequest request
+                                         ) {
 
         User user = userService.findByEmail(email);
 
         if (user == null) {
-            model.addAttribute("emailNotExists", true);
             return new ResponseEntity("Email not found!", HttpStatus.BAD_REQUEST);
 
         }
@@ -169,14 +159,74 @@ public class UserResource {
 
         mailSender.send(newEmail);
 
-        model.addAttribute("forgetPasswordEmailSent", true);
-
         return new ResponseEntity("Email sent!", HttpStatus.OK);
 
     }
 
+    @RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
+    public ResponseEntity profileInfo(
+            @RequestBody HashMap<String, Object> mapper
+    ) throws Exception {
+
+        String email = (String) mapper.get("email");
+        String username = (String) mapper.get("username");
+        String firstName = (String) mapper.get("firstName");
+        String lastName = (String) mapper.get("lastName");
+        int id = (Integer) mapper.get("id");
+        String newPassword = (String) mapper.get("newPassword");
+        String currentPassword = (String) mapper.get("currentPassword");
+
+        User currentUser = userService.findById(Long.valueOf(id));
+//
+        if (currentUser == null) {
+            throw new Exception("User not found");
+        }
+
+//      check email address exists
+        if (userService.findByEmail(email) != null) {
+            if (userService.findByEmail(email).getId() != currentUser.getId()) {
+                return new ResponseEntity("Email not found!", HttpStatus.BAD_REQUEST);
+
+            }
+        }
+
+//        check username exists
+        if (userService.findByUsername(username) != null) {
+            if (userService.findByUsername(username).getId() != currentUser.getId()) {
+                return new ResponseEntity("Username not found!", HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        SecurityConfig securityConfig = new SecurityConfig();
+
+//      update password
+        if (newPassword != null && !newPassword.isEmpty() && !newPassword.equals("")) {
+            BCryptPasswordEncoder passwordEncoder = SecurityUtility.passwordEncoder();
+            String dbPassword = currentUser.getPassword();
+            System.out.println(currentPassword);
+            System.out.println(dbPassword);
+            System.out.println(passwordEncoder.matches(currentPassword, dbPassword));
+            if (currentPassword.equals(dbPassword)) {
+                currentUser.setPassword(passwordEncoder.encode(newPassword));
+            } else {
+                return new ResponseEntity("Incorrect current password!", HttpStatus.OK);
+
+            }
+        }
+
+        currentUser.setFirstName(firstName);
+        currentUser.setLastName(lastName);
+        currentUser.setUsername(username);
+        currentUser.setEmail(email);
+
+        userService.save(currentUser);
+
+        return new ResponseEntity("Update Success!", HttpStatus.OK);
+
+    }
+
     @RequestMapping("/getCurrentUser")
-    public User getCurrentUser(Principal principal){
+    public User getCurrentUser(Principal principal) {
         User user = userService.findByUsername(principal.getName());
 
         return user;

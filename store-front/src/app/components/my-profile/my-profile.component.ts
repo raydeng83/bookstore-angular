@@ -33,6 +33,9 @@ export class MyProfileComponent implements OnInit {
   private recoverEmail:string;
 
   private user: User = new User();
+  private updateSuccess:boolean;
+  private newPassword:string;
+  private incorrectPassword:boolean;
   private userPayment: UserPayment = new UserPayment();
   private userBilling: UserBilling = new UserBilling();
   private userPaymentList: UserPayment[] = [];  
@@ -115,6 +118,20 @@ export class MyProfileComponent implements OnInit {
         let errorMessage=error.text();
         if (errorMessage==="usernameExists") this.usernameExists=true;
         if (errorMessage==="emailExists") this.emailExists=true;
+      }
+      );
+  }
+
+  onUpdateUserInfo() {
+    this.userService.updateUserInfo(this.user, this.newPassword).subscribe(
+      res => {
+        console.log(res.text());
+        this.updateSuccess = true;
+      },
+      error => {
+        console.log(error.text());
+        let errorMessage=error.text();
+        if (errorMessage==="Incorrect current password!") this.incorrectPassword=true;
       }
       );
   }
