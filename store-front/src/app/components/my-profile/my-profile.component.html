@@ -74,7 +74,7 @@
                                 <br>
                                 <div>
                                     <p *ngIf="defaultPaymentSet">Default payment set successfully!</p>
-                                    <md-tab-group (selectedIndexChange)="selectedIndexChange($event)"  [selectedIndex]="selectedBillingTab">
+                                    <md-tab-group (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedBillingTab">
                                         <md-tab label="List of Credit Cards">
                                             <form (ngSubmit)="setDefaultPayment()" method="post">
                                                 <table class="table">
@@ -248,6 +248,88 @@
                                 </div>
                             </md-tab>
                             <md-tab label="Shipping">
+                                <br>
+                                <br>
+                                <div>
+                                    <p *ngIf="defaultShippingSet">Default shipping address set successfully!</p>
+                                    <md-tab-group (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedShippingTab">
+                                        <md-tab label="List of Shipping Addresses">
+                                            <form (ngSubmit)="setDefaultShipping()" method="post">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Default</th>
+                                                            <th>Shipping Address</th>
+                                                            <th>Operations</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let userShipping of userShippingList">
+                                                            <td>
+                                                                <input type="radio" name="defaultUserShippingId" [(ngModel)]="defaultUserShippingId" [value]="userShipping.id" />
+                                                                <span>default</span>
+                                                            </td>
+                                                            <td>Shipping Address</td>
+                                                            <td>
+                                                                <a md-button (click)="onUpdateShipping(userShipping)"><i
+                                                            class="fa fa-pencil"></i></a>
+                                                                <a md-button (click)="onRemoveShipping(userShipping.id)"><i
+                                                            class="fa fa-times"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <button md-raised-button class="mat-primary" type="submit">Save</button>
+                                            </form>
+                                        </md-tab>
+                                        <md-tab label="Add(Update) Shipping Address">
+                                            <form (ngSubmit)="onNewShippingAddress()" method="post">
+                                                <input hidden="hidden" name="id" [(ngModel)]="userShipping.id" />
+                                                <!--Shipping Address-->
+                                                <div class="form-group">
+                                                    <h4>Shipping Address</h4>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="shippingName">* Name</label>
+                                                    <input type="text" class="form-control" id="shippingName" required="required" placeholder="Recevier Name" name="userShippingName" [(ngModel)]="userShipping.userShippingName" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="shippingAddress">* Street Address</label>
+                                                    <input type="text" class="form-control" id="shippingAddress" required="required" placeholder="Street Address 1" name="userShippingStreet1" [(ngModel)]="userShipping.userShippingStreet1" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Street Address 2" name="userShippingStreet2" [(ngModel)]="userShipping.userShippingStreet2" />
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-4">
+                                                        <div class="form-group">
+                                                            <label for="shippingCity">* City</label>
+                                                            <input type="text" class="form-control" id="shippingCity" required="required" placeholder="Your Shipping City" name="userShippingCity" [(ngModel)]="userShipping.userShippingCity" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <div class="form-group">
+                                                            <label for="shippingState">* State</label>
+                                                            <select id="shippingState" class="form-control" name="userShippingState" [(ngModel)]="userShipping.userShippingState" required="required">
+                                                                <option value="" disabled>-- state --</option>
+                                                                <option *ngFor="let state of stateList">{{state}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <div class="form-group">
+                                                            <label for="shippingZipcode">* Zipcode</label>
+                                                            <input type="text" class="form-control" id="shippingZipcode" required="required" placeholder="Zipcode" name="userShippingZipcode" [(ngModel)]="userShipping.userShippingZipcode" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                <button type="submit" class="btn btn-primary btn-lg">Save All</button>
+                                            </form>
+                                        </md-tab>
+                                    </md-tab-group>
+                                </div>
                             </md-tab>
                         </md-tab-group>
                     </div>

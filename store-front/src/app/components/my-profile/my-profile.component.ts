@@ -7,6 +7,7 @@ import {PaymentService} from "../../services/payment.service";
 import {User} from '../../models/user';
 import {UserPayment} from '../../models/user-payment';
 import {UserBilling} from '../../models/user-billing';
+import {UserShipping} from '../../models/user-shipping';
 
 @Component({
   selector: 'app-my-profile',
@@ -35,6 +36,7 @@ export class MyProfileComponent implements OnInit {
   private userBilling: UserBilling = new UserBilling();
   private userPaymentList: UserPayment[] = [];  
   private stateList: string[] = [];
+  private userShipping: UserShipping = new UserShipping();
 
   private selectedProfileTab:number = 0;
   private selectedBillingTab:number = 0;
@@ -187,6 +189,7 @@ export class MyProfileComponent implements OnInit {
     this.userPayment.expiryYear="";
     this.userPayment.userBilling = this.userBilling;
     this.defaultPaymentSet=false;
-    
+
+    this.userShipping.userShippingState="";
   }
 }
