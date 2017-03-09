@@ -1,0 +1,58 @@
+<div class="container" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-xs-8">
+            <h2 class="section-headline"><span>All Books</span></h2>
+        </div>
+        <div class="col-xs-4">
+            <a href="#"><img src="{{serverPath}}/image/logo.png" class="img-responsive" /></a>
+        </div>
+    </div>
+    <hr style="position: absolute; width:100%; height:6px; background-color: #333; z-index: -1; margin-top: -80px;" />
+    <img class="img-responsive" src="{{serverPath}}/image/wood.png" style="margin-top: -75px;" />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
+            <table class="table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                <thead>
+                    <tr>
+                        <th colspan="5">
+                            Filter by name:
+                            <input class="form-control" [(ngModel)]="filterQuery" />
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of bookList">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <a href="#">
+                                    <img class="img-responsive" src="{{serverPath}}/image/book/{{book.id}}.png" />
+                                </a>
+                            </div>
+                            <div class="col-md-9">
+                                <h4 (click)="onSelect(book)" style="margin-top: 20px;cursor: pointer;">{{book.title}}</h4>
+                                <span>{{book.publicationDate}}</span>
+                                <p>{{book.author}}</p>
+                                <a href="#"><span>{{book.format | uppercase}}</span></a>
+                                <span>{{book.numberOfPages}}</span><span> pages</span>
+                                <br/>
+                                <a th:href="@{/bookDetail?id=}+${book.id}"><span
+                                            style="font-size: x-large; color: #db3208">$<span>{{book.ourPrice | number : '1.2-2'}}</span></span></a>
+                                <span style=" text-decoration: line-through;">$<span
+                                            >{{book.listPrice | number : '1.2-2'}}</span></span>
+                                <p>{{book.description | slice:0:500}}</p>
+                            </div>
+                        </div>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
