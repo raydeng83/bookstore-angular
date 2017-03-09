@@ -45,39 +45,39 @@ public class PaymentResource {
         return new ResponseEntity("Payment Added(Updated) Successfully!", HttpStatus.OK);
     }
 
-    @RequestMapping("/update")
-    public ResponseEntity updateCreditCard(
-            @RequestBody String id, Principal principal,
-            Model model
-    ) {
-
-        User user = userService.findByUsername(principal.getName());
-        UserPayment userPayment = userPaymentService.findById(Long.parseLong(id));
-
-        if (user.getId()!=userPayment.getUser().getId()) {
-            return new ResponseEntity("Invalid Request", HttpStatus.BAD_REQUEST);
-        } else {
-
-            model.addAttribute("user", user);
-            UserBilling userBilling = userPayment.getUserBilling();
-            model.addAttribute("userPayment", userPayment);
-            model.addAttribute("userBilling", userBilling);
-
-            List<String> stateList = USConstants.listOfUSStatesCode;
-            Collections.sort(stateList);
-            model.addAttribute("stateList", stateList);
-
-            model.addAttribute("addNewCreditCard", true);
-            model.addAttribute("classActiveBilling", true);
-            model.addAttribute("listOfShippingAddresses", true);
-            model.addAttribute("userPaymentList", user.getUserPaymentList());
-            model.addAttribute("userShippingList", user.getUserShippingList());
-            model.addAttribute("orderList", user.getOrderList());
-
-
-            return new ResponseEntity("Payment Added(Updated) Successfully!", HttpStatus.OK);
-        }
-    }
+//    @RequestMapping("/update")
+//    public ResponseEntity updateCreditCard(
+//            @RequestBody String id, Principal principal,
+//            Model model
+//    ) {
+//
+//        User user = userService.findByUsername(principal.getName());
+//        UserPayment userPayment = userPaymentService.findById(Long.parseLong(id));
+//
+//        if (user.getId()!=userPayment.getUser().getId()) {
+//            return new ResponseEntity("Invalid Request", HttpStatus.BAD_REQUEST);
+//        } else {
+//
+//            model.addAttribute("user", user);
+//            UserBilling userBilling = userPayment.getUserBilling();
+//            model.addAttribute("userPayment", userPayment);
+//            model.addAttribute("userBilling", userBilling);
+//
+//            List<String> stateList = USConstants.listOfUSStatesCode;
+//            Collections.sort(stateList);
+//            model.addAttribute("stateList", stateList);
+//
+//            model.addAttribute("addNewCreditCard", true);
+//            model.addAttribute("classActiveBilling", true);
+//            model.addAttribute("listOfShippingAddresses", true);
+//            model.addAttribute("userPaymentList", user.getUserPaymentList());
+//            model.addAttribute("userShippingList", user.getUserShippingList());
+//            model.addAttribute("orderList", user.getOrderList());
+//
+//
+//            return new ResponseEntity("Payment Added(Updated) Successfully!", HttpStatus.OK);
+//        }
+//    }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public ResponseEntity removePaymentPost(

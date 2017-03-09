@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {LoginService} from "../../services/login.service";
 import {UserService} from "../../services/user.service";
 import {PaymentService} from "../../services/payment.service";
+import {ShippingService} from "../../services/shipping.service";
 import {User} from '../../models/user';
 import {UserPayment} from '../../models/user-payment';
 import {UserBilling} from '../../models/user-billing';
@@ -35,19 +36,34 @@ export class MyProfileComponent implements OnInit {
   private userPayment: UserPayment = new UserPayment();
   private userBilling: UserBilling = new UserBilling();
   private userPaymentList: UserPayment[] = [];  
-  private stateList: string[] = [];
   private userShipping: UserShipping = new UserShipping();
+  private userShippingList: UserShipping[] = [];
+  private stateList: string[] = [];
 
   private selectedProfileTab:number = 0;
   private selectedBillingTab:number = 0;
+  private selectedShippingTab:number = 0;
 
   private defaultUserPaymentId:number;
   private defaultPaymentSet:boolean;
 
-  constructor (private paymentService:PaymentService, private loginService: LoginService, private userService: UserService, private router: Router){
+  private defaultUserShippingId:number;
+  private defaultShippingSet: boolean;
+
+  constructor (
+    private paymentService:PaymentService, 
+    private shippingService:ShippingService,
+    private loginService: LoginService, 
+    private userService: UserService, 
+    private router: Router
+    ){
   }
 
-  selectedIndexChange(val :number ){
+  selectedShippingChange(val :number ){
+    this.selectedShippingTab=val;
+  }
+
+  selectedBillingChange(val :number ){
     this.selectedBillingTab=val;
   }
 
@@ -118,7 +134,6 @@ export class MyProfileComponent implements OnInit {
   onUpdatePayment(payment:UserPayment) {
     this.userPayment = payment;
     this.userBilling = payment.userBilling;
-    this.selectedBillingTab=1;
   }
 
   onRemovePayment(id:number) {
@@ -148,16 +163,68 @@ export class MyProfileComponent implements OnInit {
       );
   }
 
+  onNewShipping () {
+    this.shippingService.newShipping(this.userShipping).subscribe(
+      res => {
+        this.getCurrentUser();
+        this.selectedShippingTab = 0;
+      },
+      error => {
+        console.log(error.text());
+      }
+      );
+  }
+
+  onUpdateShipping(shipping:UserShipping) {
+    this.userShipping = shipping;
+    this.selectedShippingTab=1;
+  }
+
+  onRemoveShipping(id:number) {
+    this.shippingService.removeShipping(id).subscribe(
+      res => {
+        this.getCurrentUser();
+
+      },
+      error => {
+        console.log(error.text());
+      }
+      );
+  }
+
+  setDefaultShipping() {
+    this.defaultShippingSet=false;
+    this.shippingService.setDefaultShipping(this.defaultUserShippingId).subscribe(
+      res => {
+        this.getCurrentUser();
+        this.defaultShippingSet=true;
+        // this.selectedProfileTab = 2;
+        // this.selectedBillingTab = 0;
+      },
+      error => {
+        console.log(error.text());
+      }
+      );
+  }
+
   getCurrentUser() {
     this.userService.getCurrentUser().subscribe(
       res => {
         this.user=res.json();
         this.userPaymentList = this.user.userPaymentList;
+        this.userShippingList = this.user.userShippingList;
 
         for (let index in this.userPaymentList) {
           if (this.userPaymentList[index].defaultPayment) {
             this.defaultUserPaymentId=this.userPaymentList[index].id;
-            return;
+            break;
+          }
+        }
+
+        for (let i in this.userShippingList) {
+          if (this.userShippingList[i].userShippingDefault) {
+            this.defaultUserShippingId=this.userShippingList[i].id;
+            break;
           }
         }
       },
@@ -191,5 +258,7 @@ export class MyProfileComponent implements OnInit {
     this.defaultPaymentSet=false;
 
     this.userShipping.userShippingState="";
+    this.defaultShippingSet=false;
+
   }
 }

@@ -74,7 +74,7 @@
                                 <br>
                                 <div>
                                     <p *ngIf="defaultPaymentSet">Default payment set successfully!</p>
-                                    <md-tab-group (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedBillingTab">
+                                    <md-tab-group (selectedIndexChange)="selectedBillingChange($event)" [selectedIndex]="selectedBillingTab">
                                         <md-tab label="List of Credit Cards">
                                             <form (ngSubmit)="setDefaultPayment()" method="post">
                                                 <table class="table">
@@ -252,7 +252,7 @@
                                 <br>
                                 <div>
                                     <p *ngIf="defaultShippingSet">Default shipping address set successfully!</p>
-                                    <md-tab-group (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedShippingTab">
+                                    <md-tab-group (selectedIndexChange)="selectedShippingChange($event)" [selectedIndex]="selectedShippingTab">
                                         <md-tab label="List of Shipping Addresses">
                                             <form (ngSubmit)="setDefaultShipping()" method="post">
                                                 <table class="table">
@@ -269,7 +269,7 @@
                                                                 <input type="radio" name="defaultUserShippingId" [(ngModel)]="defaultUserShippingId" [value]="userShipping.id" />
                                                                 <span>default</span>
                                                             </td>
-                                                            <td>Shipping Address</td>
+                                                            <td>{{userShipping.userShippingStreet1}},  {{userShipping.userShippingCity}}, {{userShipping.userShippingState}}</td>
                                                             <td>
                                                                 <a md-button (click)="onUpdateShipping(userShipping)"><i
                                                             class="fa fa-pencil"></i></a>
@@ -283,7 +283,7 @@
                                             </form>
                                         </md-tab>
                                         <md-tab label="Add(Update) Shipping Address">
-                                            <form (ngSubmit)="onNewShippingAddress()" method="post">
+                                            <form (ngSubmit)="onNewShipping()" method="post">
                                                 <input hidden="hidden" name="id" [(ngModel)]="userShipping.id" />
                                                 <!--Shipping Address-->
                                                 <div class="form-group">
@@ -325,7 +325,7 @@
                                                     </div>
                                                 </div>
                                                 <hr/>
-                                                <button type="submit" class="btn btn-primary btn-lg">Save All</button>
+                                                <button md-raised-button type="submit" class="mat-primary">Save All</button>
                                             </form>
                                         </md-tab>
                                     </md-tab-group>
