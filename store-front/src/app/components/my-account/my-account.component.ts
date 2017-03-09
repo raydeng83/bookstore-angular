@@ -40,6 +40,7 @@ export class MyAccountComponent implements OnInit {
       },
       error=>{
         this.loggedIn=false;
+        this.loginError=true;
       }
     );
   }

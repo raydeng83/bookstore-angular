@@ -151,6 +151,8 @@ export class MyProfileComponent implements OnInit {
   onUpdatePayment(payment:UserPayment) {
     this.userPayment = payment;
     this.userBilling = payment.userBilling;
+    this.selectedBillingTab = 1;
+
   }
 
   onRemovePayment(id:number) {
