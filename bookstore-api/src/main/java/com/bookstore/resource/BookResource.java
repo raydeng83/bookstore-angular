@@ -1,7 +1,9 @@
 package com.bookstore.resource;
 
 import com.bookstore.domain.Book;
+import com.bookstore.domain.User;
 import com.bookstore.service.BookService;
+import com.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +14,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.server.PathParam;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.Principal;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,6 +37,9 @@ public class BookResource {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/add/image", method = RequestMethod.POST)
     public ResponseEntity upload(
@@ -113,6 +121,18 @@ public class BookResource {
     ) {
         Book book = bookService.findOne(id);
         return book;
+    }
+
+    @RequestMapping("/{id}")
+    public ResponseEntity bookDetail(@PathVariable("id") Long id, Principal principal) {
+        if (principal != null) {
+            String username = principal.getName();
+            User user = userService.findByUsername(username);
+        }
+
+        Book book = bookService.findOne(id);
+
+        return new ResponseEntity("Book Found!", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)

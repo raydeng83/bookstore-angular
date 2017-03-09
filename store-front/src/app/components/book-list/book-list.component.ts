@@ -12,8 +12,8 @@ import {AppConst} from '../../constants/app-const';
 })
 export class BookListComponent implements OnInit {
 
-    public filterQuery = "";
-    public rowsOnPage = 10;
+  public filterQuery = "";
+  public rowsOnPage = 10;
 
   private selectedBook : Book;
   private bookList: Book[];

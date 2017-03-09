@@ -22,6 +22,7 @@ import { BookService } from './services/book.service';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { BookListComponent } from './components/book-list/book-list.component';
+import { BookDetailComponent } from './components/book-detail/book-detail.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BookListComponent } from './components/book-list/book-list.component';
     NavBarComponent,
     MyAccountComponent,
     MyProfileComponent,
-    BookListComponent
+    BookListComponent,
+    BookDetailComponent
   ],
   imports: [
     BrowserModule,
