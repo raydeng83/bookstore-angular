@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AppConst} from '../../constants/app-const';
 import {Book} from '../../models/book';
 import {Router} from "@angular/router";
+import {CartService} from '../../services/cart.service';
+import {CartItem} from '../../models/cart-item';
 
 
 @Component({
@@ -12,8 +14,9 @@ import {Router} from "@angular/router";
 export class ShoppingCartComponent implements OnInit {
   private serverPath = AppConst.serverPath;
   private selectedBook: Book;
+  private cartItemList: CartItem[] = [];
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private cartService: CartService) { }
 
   onSelect(book:Book) {
     this.selectedBook = book;
@@ -21,6 +24,15 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.cartService.getCart().subscribe(
+        res=>{
+          console.log(res.json());
+          this.cartItemList = res.json();
+        },
+        error=>{
+          console.log(error.text());
+        }
+      );
   }
 
 }

@@ -39,7 +39,7 @@
                 <form (ngSubmit)="onSubmit()" method="post">
                     <hr/>
                     <div class="col-xs-2">
-                        <a (click)="onSelect(cartItem.book)"><img class="img-responsive shelf-book" th:src="#{adminPath}+@{/image/book/}+${cartItem.book.id}+'.png'" style="width:70px;" /></a>
+                        <a (click)="onSelect(cartItem.book)"><img class="img-responsive shelf-book" src="{{serverPath}}/image/book/{{cartItem.book.id}}.png" style="width:70px;" /></a>
                     </div>
                     <div class="col-xs-6">
                         <a (click)="onSelect(cartItem.book)"><h4>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-xs-2">
                         <input hidden="hidden" name="id" [(ngModel)]="cartItem.id" />
-                        <input id="cartItem.id" th:name="qty" [disabled]="cartItem.book.inStockNumber==0" class="form-control cartItemQty" [(ngModel)]="cartItem.qty" />
+                        <input id="cartItem.id" name="qty" [disabled]="cartItem.book.inStockNumber==0" class="form-control cartItemQty" [(ngModel)]="cartItem.qty" />
                         <button style="display:none;" id="'update-item-'cartItem.id" type="submit" class="btn btn-warning btn-xs">Update
                         </button>
                     </div>

@@ -54,6 +54,7 @@ export class BookDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.qty=1;
   }
 
 }

@@ -2,9 +2,11 @@ package com.bookstore.resource;
 
 import com.bookstore.domain.Book;
 import com.bookstore.domain.CartItem;
+import com.bookstore.domain.ShoppingCart;
 import com.bookstore.domain.User;
 import com.bookstore.service.BookService;
 import com.bookstore.service.CartItemService;
+import com.bookstore.service.ShoppingCartService;
 import com.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by z00382545 on 3/10/17.
@@ -34,6 +37,9 @@ public class ShoppingCartResource {
 
     @Autowired
     private CartItemService cartItemService;
+
+    @Autowired
+    private ShoppingCartService shoppingCartService;
 
     @RequestMapping("/add")
     public ResponseEntity addItem(
@@ -54,5 +60,18 @@ public class ShoppingCartResource {
 
         return new ResponseEntity("Book Added Successfully!", HttpStatus.OK);
 
+    }
+
+    @RequestMapping("/getCart")
+    public List<CartItem> shoppingCart(Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        ShoppingCart shoppingCart = user.getShoppingCart();
+
+        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
+
+        shoppingCartService.updateShoppingCart(shoppingCart);
+
+
+        return cartItemList;
     }
 }
