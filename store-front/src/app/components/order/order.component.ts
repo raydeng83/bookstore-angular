@@ -28,12 +28,25 @@ export class OrderComponent implements OnInit {
   private userPayment:UserPayment = new UserPayment();
   private userShipping:UserShipping = new UserShipping();
   private userBilling: UserBilling = new UserBilling();
+  private selectedTab: number;
 
   constructor(private router:Router, private cartService: CartService) { }
 
   onSelect(book:Book) {
     this.selectedBook = book;
     this.router.navigate(['/bookDetail', this.selectedBook.id]);
+  }
+
+  selectedChange(val :number ){
+    this.selectedTab=val;
+  }
+
+  goToPayment() {
+  	this.selectedTab=1;
+  }
+
+  goToReview() {
+  	this.selectedTab=2;
   }
 
   getCartItemList(){
@@ -62,5 +75,7 @@ export class OrderComponent implements OnInit {
         }
     );
   }
+
+
 
 }

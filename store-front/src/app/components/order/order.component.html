@@ -56,7 +56,7 @@
                 <div *ngIf="missingRequiredField ">
                     <h5 class="alert alert-warning ">There are some fields missing. Field with * is required. </h5>
                 </div>
-                <md-tab-group>
+                <md-tab-group (selectedIndexChange)="selectedChange($event)" [selectedIndex]="selectedTab">
                     <!--1. Shipping Address-->
                     <md-tab label="1. Shipping Address">
                         <div class="panel panel-default ">
@@ -120,7 +120,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <a data-toggle="collapse " data-parent="#accordion " class="btn btn-warning pull-right " href="#paymentInfo ">Next</a> -->
+                                <a md-raised-button class="mat-primary" (click)="goToPayment()">Next</a>
                             </div>
                         </div>
                     </md-tab>
@@ -278,7 +278,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a data-toggle="collapse " data-parent="#accordion " class="btn btn-warning pull-right " href="#reviewItems ">Next</a>
+                                <a md-raised-button class="mat-primary" (click)="goToReview()">Next</a>
                             </div>
                         </div>
                     </md-tab>
@@ -340,7 +340,7 @@
                         ></span>{{shoppingCart.grandTotal}}</span></h4>
                                 <br/>
                                 <br/>
-                                <button type="submit " class="btn btn-warning btn-block ">Place your order
+                                <button md-raised-button type="submit " class="btn-block mat-primary">Place your order
                                 </button>
                                 <p>By placing your order, you agree to Le's Bookstore <a href="# ">privacy</a> notice and
                                     <a href="# ">conditions</a> of use.</p>
