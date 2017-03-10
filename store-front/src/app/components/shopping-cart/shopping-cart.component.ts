@@ -4,7 +4,7 @@ import {Book} from '../../models/book';
 import {Router} from "@angular/router";
 import {CartService} from '../../services/cart.service';
 import {CartItem} from '../../models/cart-item';
-
+import {ShoppingCart} from '../../models/shopping-cart';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -15,6 +15,8 @@ export class ShoppingCartComponent implements OnInit {
   private serverPath = AppConst.serverPath;
   private selectedBook: Book;
   private cartItemList: CartItem[] = [];
+  private cartItemNumber: number;
+  private shoppingCart: ShoppingCart = new ShoppingCart();
 
   constructor(private router:Router, private cartService: CartService) { }
 
@@ -24,15 +26,25 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cartService.getCart().subscribe(
+    this.cartService.getCartItemList().subscribe(
         res=>{
-          console.log(res.json());
           this.cartItemList = res.json();
+          this.cartItemNumber = this.cartItemList.length;
         },
         error=>{
           console.log(error.text());
         }
       );
+
+    this.cartService.getShoppingCart().subscribe(
+      res=>{
+          console.log(res.json());
+          this.shoppingCart=res.json();
+        },
+        error=>{
+          console.log(error.text());
+        }
+    );
   }
 
 }

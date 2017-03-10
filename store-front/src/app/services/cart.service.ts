@@ -19,8 +19,17 @@ export class CartService {
     return this.http.post(url, cartItemInfo, {headers : tokenHeader});
   }
 
-  getCart() {
-    let url = AppConst.serverPath+"/cart/getCart";
+  getCartItemList() {
+    let url = AppConst.serverPath+"/cart/getCartItemList";
+    
+    let tokenHeader = new Headers ({
+      'x-auth-token' : localStorage.getItem("xAuthToken")
+    });
+    return this.http.get(url, {headers : tokenHeader});
+  }
+
+  getShoppingCart() {
+    let url = AppConst.serverPath+"/cart/getShoppingCart";
     
     let tokenHeader = new Headers ({
       'x-auth-token' : localStorage.getItem("xAuthToken")

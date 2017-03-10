@@ -66,9 +66,9 @@
             <div class="row">
                 <hr/>
                 <h4 class="col-xs-12 text-right"><Strong style="font-size: large">Total Price (<span
-                        th:text="${#lists.size(cartItemList)}"></span> items): </Strong><span
+                        >{{cartItemNumber}}</span> items): </Strong><span
                         style="color: #db3208; font-size: large;">$<span
-                        th:text="${shoppingCart.grandTotal}"></span></span></h4>
+                        ></span>{{shoppingCart.grandTotal}}</span></h4>
             </div>
         </div>
     </div>

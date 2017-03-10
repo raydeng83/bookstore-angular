@@ -62,8 +62,8 @@ public class ShoppingCartResource {
 
     }
 
-    @RequestMapping("/getCart")
-    public List<CartItem> shoppingCart(Principal principal) {
+    @RequestMapping("/getCartItemList")
+    public List<CartItem> getCartItemList(Principal principal) {
         User user = userService.findByUsername(principal.getName());
         ShoppingCart shoppingCart = user.getShoppingCart();
 
@@ -73,5 +73,15 @@ public class ShoppingCartResource {
 
 
         return cartItemList;
+    }
+
+    @RequestMapping("/getShoppingCart")
+    public ShoppingCart getShoppingCart(Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        ShoppingCart shoppingCart = user.getShoppingCart();
+
+        shoppingCartService.updateShoppingCart(shoppingCart);
+
+        return shoppingCart;
     }
 }
