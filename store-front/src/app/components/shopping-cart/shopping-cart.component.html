@@ -14,12 +14,16 @@
             <div class="row">
                 <div class="col-xs-6 text-left">
                     <a md-raised-button class="mat-warn" routerLink="/bookList">Continue Shopping</a>
+                    <!-- <a md-raised-button *ngIf="displayUpdateCart" class="mat-accent" (click)="onUpdateCart()">Update Cart</a> -->
                 </div>
                 <div class="col-xs-6 text-right">
                     <a md-raised-button class="mat-primary" routerLink="/checkout">Check Out</a>
                 </div>
             </div>
             <br/>
+            <div *ngIf="cartItemUpdated" class="alert alert-success">
+                Cart Item Updated Successfully!
+            </div>
             <div *ngIf="notEnoughStock" class="alert alert-warning">
                 Oops, some of the products don't have enough stock. Please update product quantity.
             </div>
@@ -36,32 +40,30 @@
             </div>
             <!--*******  display products in cart  ********-->
             <div class="row" *ngFor="let cartItem of cartItemList">
-                <form (ngSubmit)="onSubmit()" method="post">
-                    <hr/>
-                    <div class="col-xs-2">
-                        <a md-button (click)="onSelect(cartItem.book)"><img class="img-responsive shelf-book" src="{{serverPath}}/image/book/{{cartItem.book.id}}.png" style="width:70px;" /></a>
-                    </div>
-                    <div class="col-xs-6">
-                        <a class="pointer" (click)="onSelect(cartItem.book)"><h4>
+                <hr/>
+                <div class="col-xs-2">
+                    <a md-button (click)="onSelect(cartItem.book)"><img class="img-responsive shelf-book" src="{{serverPath}}/image/book/{{cartItem.book.id}}.png" style="width:70px;" /></a>
+                </div>
+                <div class="col-xs-6">
+                    <a class="pointer" (click)="onSelect(cartItem.book)"><h4>
                             {{cartItem.book.title}}</h4></a>
-                        <p *ngIf="cartItem.book.inStockNumber > 10" style="color: green;">In Stock</p>
-                        <p *ngIf="cartItem.book.inStockNumber < 10 && cartItem.book.inStockNumber > 0" style="color: green;"> Only <span>{{cartItem.book.inStockNumber}}</span> In Stock
-                        </p>
-                        <p style="color: darkred;" *ngIf="cartItem.book.inStockNumber==0">Product Unavailable</p>
-                        <a class="pointer" (click)="onRemoveCartItem(cartItem)">delete</a>
-                    </div>
-                    <div class="col-xs-2">
-                        <h5 style="color: #db3208; font-size: large;">$<span [ngClass]="{'text-strike': cartItem.book.inStockNumber == 0 }"
+                    
+                    <p *ngIf="cartItem.book.inStockNumber > 10" style="color: green;">In Stock</p>
+                    <p *ngIf="cartItem.book.inStockNumber < 10 && cartItem.book.inStockNumber > 0" style="color: green;"> Only <span>{{cartItem.book.inStockNumber}}</span> In Stock
+                    </p>
+                    <p style="color: darkred;" *ngIf="cartItem.book.inStockNumber==0">Product Unavailable</p>
+                    <a class="pointer" (click)="onRemoveCartItem(cartItem)">delete</a>
+                </div>
+                <div class="col-xs-2">
+                    <h5 style="color: #db3208; font-size: large;">$<span [ngClass]="{'text-strike': cartItem.book.inStockNumber == 0 }"
                                                                              >{{cartItem.book.ourPrice}}</span>
                         </h5>
-                    </div>
-                    <div class="col-xs-2">
-                        <input hidden="hidden" name="id" [(ngModel)]="cartItem.id" />
-                        <input id="cartItem.id" name="qty" [disabled]="cartItem.book.inStockNumber==0" class="form-control cartItemQty" [(ngModel)]="cartItem.qty" />
-                        <button style="display:none;" id="'update-item-'cartItem.id" type="submit" class="btn btn-warning btn-xs">Update
-                        </button>
-                    </div>
-                </form>
+                </div>
+                <div class="col-xs-2">
+                    <input hidden="hidden" name="id" [(ngModel)]="cartItem.id" />
+                    <input id="cartItem.id" name="qty" [disabled]="cartItem.book.inStockNumber==0" class="form-control cartItemQty" [(ngModel)]="cartItem.qty" (ngModelChange)="cartItem.toUpdate=true" />
+                    <a md-button *ngIf="cartItem.toUpdate" class="pointer mat-warn" (click)="onUpdateCartItem(cartItem)">Update</a>
+                </div>
             </div>
             <div class="row">
                 <hr/>

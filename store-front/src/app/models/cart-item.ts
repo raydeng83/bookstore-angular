@@ -10,5 +10,5 @@ export class CartItem {
     public book: Book;
     public shoppingCart: ShoppingCart;
     public order: Order;
-
+    public toUpdate:boolean;
 }

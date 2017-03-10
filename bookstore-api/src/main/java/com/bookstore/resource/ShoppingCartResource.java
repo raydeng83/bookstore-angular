@@ -91,7 +91,7 @@ public class ShoppingCartResource {
     }
 
     @RequestMapping("/updateCartItem")
-    public ResponseEntity updateShoppingCart(
+    public ResponseEntity updateCartItem(
             @RequestBody HashMap<String, String> mapper
     ) {
         String cartItemId = mapper.get("cartItemId");
@@ -102,7 +102,7 @@ public class ShoppingCartResource {
 
         cartItemService.updateCartItem(cartItem);
 
-        return new ResponseEntity("Cart Updated Successfully!", HttpStatus.OK);
+        return new ResponseEntity("Cart Item Updated Successfully!", HttpStatus.OK);
 
     }
 }

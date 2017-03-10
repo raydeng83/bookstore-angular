@@ -17,6 +17,7 @@ export class ShoppingCartComponent implements OnInit {
   private cartItemList: CartItem[] = [];
   private cartItemNumber: number;
   private shoppingCart: ShoppingCart = new ShoppingCart();
+  private cartItemUpdated:boolean;
 
   constructor(private router:Router, private cartService: CartService) { }
 
@@ -30,6 +31,18 @@ export class ShoppingCartComponent implements OnInit {
         res=>{
           console.log(res.text());
           this.getCartItemList();
+        },
+        error=>{
+          console.log(error.text());
+        }
+      );
+  }
+
+  onUpdateCartItem(cartItem:CartItem) {
+    this.cartService.updateCartItem(cartItem.id, cartItem.qty).subscribe(
+        res=>{
+          console.log(res.text());
+          this.cartItemUpdated=true;
         },
         error=>{
           console.log(error.text());

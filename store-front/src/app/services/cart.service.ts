@@ -37,8 +37,8 @@ export class CartService {
     return this.http.get(url, {headers : tokenHeader});
   }
 
-  updateShoppingCart(cartItemId:number, qty:number) {
-    let url = AppConst.serverPath+"/cart/removeItem";
+  updateCartItem(cartItemId:number, qty:number) {
+    let url = AppConst.serverPath+"/cart/updateCartItem";
     let cartItemInfo = {
       "cartItemId" : cartItemId,
       "qty" : qty
