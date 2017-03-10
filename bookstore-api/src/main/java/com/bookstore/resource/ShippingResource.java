@@ -47,6 +47,16 @@ public class ShippingResource {
         return new ResponseEntity("Shipping Added(Updated) Successfully!", HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/getUserShippingList")
+    public List<UserShipping> getUserShippingList(
+            Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+
+        List<UserShipping> userShippingList = user.getUserShippingList();
+
+        return userShippingList;
+    }
+
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public ResponseEntity removeUserShippingPost(
             @RequestBody String id,

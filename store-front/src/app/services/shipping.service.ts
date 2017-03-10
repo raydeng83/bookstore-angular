@@ -19,6 +19,16 @@ export class ShippingService {
     return this.http.post(url, JSON.stringify(shipping), {headers : tokenHeader});
   }
 
+  getUserShippingList() {
+    let url = this.serverPath+"/shipping/getUserShippingList";
+    
+    let tokenHeader = new Headers ({
+      'Content-Type': 'application/json',
+      'x-auth-token' : localStorage.getItem("xAuthToken")
+    });
+    return this.http.get(url, {headers : tokenHeader});
+  }
+
   removeShipping(id: number) {
     let url = this.serverPath+"/shipping/remove";
     

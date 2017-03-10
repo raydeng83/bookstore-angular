@@ -26,12 +26,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShippingResource.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ShippingResource.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bookstore/resource/ShippingResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="67" column="55" lean-forward="false" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
-              <folding />
+            <state relative-caret-position="153">
+              <caret line="49" column="50" lean-forward="false" selection-start-line="49" selection-start-column="50" selection-end-line="49" selection-end-column="50" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -148,7 +150,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BillingAddress.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BillingAddress.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bookstore/domain/BillingAddress.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
@@ -228,7 +230,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bookstore/domain/UserPayment.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bookstore/domain/UserBilling.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bookstore/resource/PaymentResource.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bookstore/resource/ShippingResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bookstore/domain/UserShipping.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bookstore/resource/UserResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bookstore/domain/Book.java" />
@@ -237,6 +238,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bookstore/domain/CartItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bookstore/resource/ShoppingCartResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bookstore/domain/Order.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bookstore/resource/ShippingResource.java" />
       </list>
     </option>
   </component>
@@ -1036,12 +1038,12 @@
       <workItem from="1488378219247" duration="650000" />
       <workItem from="1488461561430" duration="18419000" />
       <workItem from="1488731165185" duration="30270000" />
-      <workItem from="1489159532831" duration="3942000" />
+      <workItem from="1489159532831" duration="4235000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96224000" />
+    <option name="totallyTimeSpent" value="96517000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="72" y="23" width="1280" height="797" extended-state="0" />
@@ -1065,7 +1067,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907802" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32624114" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32624114" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907802" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32229403" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1431,14 +1433,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bookstore/resource/ShippingResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="67" column="55" lean-forward="false" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bookstore/domain/UserShipping.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -1560,6 +1554,16 @@
         <state relative-caret-position="300">
           <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bookstore/resource/ShippingResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="49" column="50" lean-forward="false" selection-start-line="49" selection-start-column="50" selection-end-line="49" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
