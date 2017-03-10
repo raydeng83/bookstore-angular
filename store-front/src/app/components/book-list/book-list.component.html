@@ -36,7 +36,7 @@
                                 <a href="#"><span>{{book.format | uppercase}}</span></a>
                                 <span>{{book.numberOfPages}}</span><span> pages</span>
                                 <br/>
-                                <a th:href="@{/bookDetail?id=}+${book.id}"><span
+                                <a (click)="onSelect(book)"><span
                                             style="font-size: x-large; color: #db3208">$<span>{{book.ourPrice | number : '1.2-2'}}</span></span></a>
                                 <span style=" text-decoration: line-through;">$<span
                                             >{{book.listPrice | number : '1.2-2'}}</span></span>

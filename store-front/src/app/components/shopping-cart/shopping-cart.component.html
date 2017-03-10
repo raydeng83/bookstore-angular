@@ -1,0 +1,75 @@
+<div class="container" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-xs-8">
+            <h2 class="section-headline"><span>Shopping Cart</span></h2>
+        </div>
+        <div class="col-xs-4">
+            <a href="#"><img src="{{serverPath}}/image/logo.png" class="img-responsive" /></a>
+        </div>
+    </div>
+    <hr style="position: absolute; width:100%; height:6px; background-color: #333; z-index: -1; margin-top: -80px;" />
+    <img class="img-responsive" src="{{serverPath}}/image/wood.png" style="margin-top: -75px;" />
+    <div class="row" style="margin-top: 120px;">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-6 text-left">
+                    <a md-raised-button class="mat-warn" routerLink="/bookList">Continue Shopping</a>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <a md-raised-button class="mat-primary" routerLink="/checkout">Check Out</a>
+                </div>
+            </div>
+            <br/>
+            <div *ngIf="notEnoughStock" class="alert alert-warning">
+                Oops, some of the products don't have enough stock. Please update product quantity.
+            </div>
+            <div *ngIf="emptyCart" class="alert alert-warning">
+                Oops, your cart is empty. See if you can find what you like in the bookshelf and add them to cart.
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <h4>Products</h4></div>
+                <div class="col-xs-2">
+                    <h4>Price</h4></div>
+                <div class="col-xs-2">
+                    <h4>Qty</h4></div>
+            </div>
+            <!--*******  display products in cart  ********-->
+            <div class="row" *ngFor="let cartItem of cartItemList">
+                <form (ngSubmit)="onSubmit()" method="post">
+                    <hr/>
+                    <div class="col-xs-2">
+                        <a (click)="onSelect(cartItem.book)"><img class="img-responsive shelf-book" th:src="#{adminPath}+@{/image/book/}+${cartItem.book.id}+'.png'" style="width:70px;" /></a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a (click)="onSelect(cartItem.book)"><h4>
+                            {{cartItem.book.title}}</h4></a>
+                        <p *ngIf="cartItem.book.inStockNumber > 10" style="color: green;">In Stock</p>
+                        <p *ngIf="cartItem.book.inStockNumber < 10 && cartItem.book.inStockNumber > 0" style="color: green;"> Only <span>{{cartItem.book.inStockNumber}}</span> In Stock
+                        </p>
+                        <p style="color: darkred;" *ngIf="cartItem.book.inStockNumber==0">Product Unavailable</p>
+                        <a (click)="onRemove(cartItem)">delete</a>
+                    </div>
+                    <div class="col-xs-2">
+                        <h5 style="color: #db3208; font-size: large;">$<span [ngClass]="{'text-strike': cartItem.book.inStockNumber == 0 }"
+                                                                             >{{cartItem.book.ourPrice}}</span>
+                        </h5>
+                    </div>
+                    <div class="col-xs-2">
+                        <input hidden="hidden" name="id" [(ngModel)]="cartItem.id" />
+                        <input id="cartItem.id" th:name="qty" [disabled]="cartItem.book.inStockNumber==0" class="form-control cartItemQty" [(ngModel)]="cartItem.qty" />
+                        <button style="display:none;" id="'update-item-'cartItem.id" type="submit" class="btn btn-warning btn-xs">Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <hr/>
+                <h4 class="col-xs-12 text-right"><Strong style="font-size: large">Total Price (<span
+                        th:text="${#lists.size(cartItemList)}"></span> items): </Strong><span
+                        style="color: #db3208; font-size: large;">$<span
+                        th:text="${shoppingCart.grandTotal}"></span></span></h4>
+            </div>
+        </div>
+    </div>
+</div>

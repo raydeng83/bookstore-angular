@@ -23,6 +23,7 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { BookDetailComponent } from './components/book-detail/book-detail.compon
     MyAccountComponent,
     MyProfileComponent,
     BookListComponent,
-    BookDetailComponent
+    BookDetailComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
