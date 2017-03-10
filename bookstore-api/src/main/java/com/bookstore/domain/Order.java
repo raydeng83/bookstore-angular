@@ -40,6 +40,7 @@ public class Order implements Serializable {
     private Payment payment;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     public Long getId() {
