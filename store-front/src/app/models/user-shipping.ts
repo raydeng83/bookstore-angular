@@ -1,6 +1,6 @@
 export class UserShipping {
 	public id: number;
-    public userShippingNmae: string;
+    public userShippingName: string;
     public userShippingStreet1: string;
     public userShippingStreet2: string;
     public userShippingCity: string;

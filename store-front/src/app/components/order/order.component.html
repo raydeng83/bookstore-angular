@@ -133,7 +133,7 @@
                             </h4>
                             </div>
                             <div class="panel-body ">
-                                <table class="table " *ngIf="not emptyPaymentList ">
+                                <table class="table " *ngIf="!emptyPaymentList ">
                                     <thead>
                                         <tr>
                                             <th>Available Credit Card</th>
@@ -146,7 +146,7 @@
                                                 {{userPayment.cardName}}
                                             </td>
                                             <td>
-                                                <a (click)="setPaymentMethod(userPayment)">use this address
+                                                <a class="pointer" (click)="setPaymentMethod(userPayment)">use this address
                                 </a>
                                             </td>
                                         </tr>
@@ -159,7 +159,7 @@
                                         <br/>
                                         <div class="form-group">
                                             <label for="cardType">* Select Card Type:</label>
-                                            <select class="form-control" id="cardType" name="type" [(ngModel)]="userPayment.type">
+                                            <select class="form-control" id="cardType" name="type" [(ngModel)]="payment.type">
                                                 <option value="" disabled="disabled">
                                                     -- Card Type --
                                                 </option>
@@ -171,12 +171,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="cardHolder">* Card Holder</label>
-                                            <input type="text" class="form-control" id="cardHolder" required="required" placeholder="Card Holder Name" name="holderName" [(ngModel)]="userPayment.holderName" />
+                                            <input type="text" class="form-control" id="cardHolder" required="required" placeholder="Card Holder Name" name="holderName" [(ngModel)]="payment.holderName" />
                                         </div>
                                         <div class="form-group">
                                             <label for="cardNumber">* Card Number</label>
                                             <div class="input-group">
-                                                <input required="required" id="cardNumber" type="tel" class="form-control" name="cardNumber" placeholder="Valid Card Number" name="cardNumber" [(ngModel)]="userPayment.cardNumber" />
+                                                <input required="required" id="cardNumber" type="tel" class="form-control" name="cardNumber" placeholder="Valid Card Number" name="cardNumber" [(ngModel)]="payment.cardNumber" />
                                                 <span class="input-group-addon"><i class="fa fa-credit-card"
                                                                                            aria-hidden="true"></i></span>
                                             </div>
@@ -189,7 +189,7 @@
                                             <label>* Expiration Date</label>
                                             <div class="row">
                                                 <div class="col-xs-6">
-                                                    <select class="form-control" name="expiryMonth" required="required" [(ngModel)]="userPayment.expiryMonth">
+                                                    <select class="form-control" name="expiryMonth" required="required" [(ngModel)]="payment.expiryMonth">
                                                         <option value="" disabled="disabled">
                                                             --Month--
                                                         </option>
@@ -208,7 +208,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-xs-6">
-                                                    <select class="form-control" name="expiryYear" [(ngModel)]="userPayment.expiryYear">
+                                                    <select class="form-control" name="expiryYear" [(ngModel)]="payment.expiryYear">
                                                         <option value="" disabled="disabled">--Year--
                                                         </option>
                                                         <option value="17">2017</option>
@@ -232,7 +232,7 @@
                                     <div class="col-xs-5 col-md-5 pull-right">
                                         <div class="form-group">
                                             <label for="cardCVC">CV Code</label>
-                                            <input id="cardCVC" type="tel" class="form-control" name="cardCVC" placeholder="CVC" name="cvc" [(ngModel)]="userPayment.cvc" />
+                                            <input id="cardCVC" type="tel" class="form-control" name="cardCVC" placeholder="CVC" name="cvc" [(ngModel)]="payment.cvc" />
                                         </div>
                                     </div>
                                 </div>
@@ -264,7 +264,7 @@
                                         <div class="form-group ">
                                             <label for="billingState ">* State</label>
                                             <select id="billingState " class="form-control billingAddress " name="billingAddressState " [(ngModel)]="billingAddress.billingAddressState">
-                                                <option value=" " disabled="disabled ">Please select an option...
+                                                <option value="" disabled="disabled ">-- state --
                                                 </option>
                                                 <option *ngFor="let state of stateList">{{state}}
                                                 </option>

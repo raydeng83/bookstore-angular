@@ -3,6 +3,7 @@ package com.bookstore.resource;
 import com.bookstore.domain.User;
 import com.bookstore.domain.UserBilling;
 import com.bookstore.domain.UserPayment;
+import com.bookstore.domain.UserShipping;
 import com.bookstore.service.UserPaymentService;
 import com.bookstore.service.UserService;
 import com.bookstore.utility.USConstants;
@@ -101,5 +102,15 @@ public class PaymentResource {
         userService.setUserDefaultPayment(Long.parseLong(id), user);
 
         return new ResponseEntity("Set Default Payment Successfully!", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getUserPaymentList")
+    public List<UserPayment> getUserPaymentList(
+            Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+
+        List<UserPayment> userPaymentList = user.getUserPaymentList();
+
+        return userPaymentList;
     }
 }
