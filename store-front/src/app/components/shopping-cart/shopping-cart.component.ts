@@ -31,6 +31,7 @@ export class ShoppingCartComponent implements OnInit {
         res=>{
           console.log(res.text());
           this.getCartItemList();
+          this.getShoppingCart();
         },
         error=>{
           console.log(error.text());
@@ -43,6 +44,7 @@ export class ShoppingCartComponent implements OnInit {
         res=>{
           console.log(res.text());
           this.cartItemUpdated=true;
+          this.getShoppingCart();
         },
         error=>{
           console.log(error.text());
@@ -62,10 +64,7 @@ export class ShoppingCartComponent implements OnInit {
       );
   }
 
-  ngOnInit() {
-    this.getCartItemList();
-    
-
+  getShoppingCart(){
     this.cartService.getShoppingCart().subscribe(
       res=>{
           console.log(res.json());
@@ -75,6 +74,12 @@ export class ShoppingCartComponent implements OnInit {
           console.log(error.text());
         }
     );
+  }
+
+  ngOnInit() {
+    this.getCartItemList();
+    
+    this.getShoppingCart();
   }
 
 }

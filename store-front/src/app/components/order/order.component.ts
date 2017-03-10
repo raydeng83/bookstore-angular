@@ -94,6 +94,7 @@ export class OrderComponent implements OnInit {
   	this.payment.cvc = userPayment.cvc;
   	this.payment.holderName = userPayment.holderName;
   	this.payment.defaultPayment = userPayment.defaultPayment;
+  	this.payment.billingAddress.billingAddressName = userPayment.userBilling.userBillingName;
   	this.payment.billingAddress.billingAddressStreet1 = userPayment.userBilling.userBillingStreet1;
   	this.payment.billingAddress.billingAddressStreet2 = userPayment.userBilling.userBillingStreet2;
   	this.payment.billingAddress.billingAddressCity = userPayment.userBilling.userBillingCity;
@@ -121,6 +122,8 @@ export class OrderComponent implements OnInit {
   	this.billingAddress.billingAddressZipcode = "";
   }
   }
+
+
 
   ngOnInit() {
   	this.getCartItemList();
@@ -163,7 +166,7 @@ export class OrderComponent implements OnInit {
     }
 
     this.payment.billingAddress = this.billingAddress;
-
+    this.payment.type="";
     this.payment.expiryMonth="";
     this.payment.expiryYear="";
     this.billingAddress.billingAddressState="";
