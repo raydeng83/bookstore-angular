@@ -94,13 +94,32 @@ export class OrderComponent implements OnInit {
   	this.payment.cvc = userPayment.cvc;
   	this.payment.holderName = userPayment.holderName;
   	this.payment.defaultPayment = userPayment.defaultPayment;
-  	this.payment.billingAddress.billingAddressName = userPayment.userBilling.userBillingName;
   	this.payment.billingAddress.billingAddressStreet1 = userPayment.userBilling.userBillingStreet1;
   	this.payment.billingAddress.billingAddressStreet2 = userPayment.userBilling.userBillingStreet2;
   	this.payment.billingAddress.billingAddressCity = userPayment.userBilling.userBillingCity;
   	this.payment.billingAddress.billingAddressState = userPayment.userBilling.userBillingState;
   	this.payment.billingAddress.billingAddressCountry = userPayment.userBilling.userBillingCountry;
   	this.payment.billingAddress.billingAddressZipcode = userPayment.userBilling.userBillingZipcode;
+  }
+
+  setBillingAsShipping(checked:boolean){
+  	console.log("same as shipping")
+
+  	if(checked) {
+  	this.billingAddress.billingAddressStreet1 = this.shippingAddress.shippingAddressStreet1;
+  	this.billingAddress.billingAddressStreet2 = this.shippingAddress.shippingAddressStreet2;
+  	this.billingAddress.billingAddressCity = this.shippingAddress.shippingAddressCity;
+  	this.billingAddress.billingAddressState = this.shippingAddress.shippingAddressState;
+  	this.billingAddress.billingAddressCountry = this.shippingAddress.shippingAddressCountry;
+  	this.billingAddress.billingAddressZipcode = this.shippingAddress.shippingAddressZipcode;
+  } else {
+  	this.billingAddress.billingAddressStreet1 = "";
+  	this.billingAddress.billingAddressStreet2 = "";
+  	this.billingAddress.billingAddressCity = "";
+  	this.billingAddress.billingAddressState = "";
+  	this.billingAddress.billingAddressCountry = "";
+  	this.billingAddress.billingAddressZipcode = "";
+  }
   }
 
   ngOnInit() {

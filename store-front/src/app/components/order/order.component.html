@@ -237,9 +237,11 @@
                                     </div>
                                 </div>
                                 <!-- CREDIT CARD FORM ENDS HERE -->
-                                <div class="checkbox ">
+                                <div class="checkbox">
                                     <label>
-                                        <input id="theSameAsShippingAddress " type="checkbox " name="billingSameAsShipping " value="true " /> The same as shipping address
+                                        <input id="theSameAsShippingAddress" type="checkbox"
+                                               name="billingSameAsShipping" value="true" (click)="setBillingAsShipping($event.target.checked)" /> The same as shipping
+                                        address
                                     </label>
                                 </div>
                                 <div class="form-group ">
