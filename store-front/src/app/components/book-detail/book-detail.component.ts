@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {Book} from "../../models/book";
 import {BookService} from "../../services/book.service";
+import {CartService} from '../../services/cart.service';
 import {Params, ActivatedRoute,Router} from "@angular/router";
 import {Http} from "@angular/http";
 import {AppConst} from '../../constants/app-const';
@@ -21,7 +22,12 @@ export class BookDetailComponent implements OnInit {
   private addBookSuccess:boolean = false;
   private notEnoughStock:boolean = false;
 
-  constructor(private bookService: BookService, private route: ActivatedRoute, private router:Router) {
+  constructor(
+    private bookService: BookService, 
+    private cartService: CartService,
+    private route: ActivatedRoute, 
+    private router:Router
+    ) {
     this.route.params.forEach((params: Params) => {
       this.bookId = Number.parseInt(params['id']);
     });
@@ -31,6 +37,19 @@ export class BookDetailComponent implements OnInit {
         this.book=res.json();
       },
       error => console.log(error)
+    );
+  }
+
+  onAddToCart() {
+    this.cartService.addItem(this.bookId, this.qty).subscribe(
+      res => {
+        console.log(res.text());
+        this.addBookSuccess=true;
+      },
+      err => {
+        console.log(err.text());
+        this.notEnoughStock=true;
+      }
     );
   }
 

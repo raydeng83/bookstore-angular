@@ -19,6 +19,8 @@ import { UserService } from './services/user.service';
 import { PaymentService } from './services/payment.service';
 import { ShippingService } from './services/shipping.service';
 import { BookService } from './services/book.service';
+import { CartService } from './services/cart.service';
+
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { BookListComponent } from './components/book-list/book-list.component';
@@ -50,7 +52,8 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
     UserService,
     PaymentService,
     ShippingService,
-    BookService
+    BookService,
+    CartService
   ],
   bootstrap: [AppComponent]
 })

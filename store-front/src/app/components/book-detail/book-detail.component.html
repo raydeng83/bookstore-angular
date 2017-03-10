@@ -56,7 +56,7 @@
                                             style="color: green;"> Only <span>{{book.inStockNumber}}</span> In
                                             Stock</h4>
                                         <h4 *ngIf="book.inStockNumber==0" style="color: darkred;">Unavailable</h4>
-                                        <button [disabled]="book.inStockNumber==0" type="submit" class="btn btn-warning"
+                                        <button [disabled]="book.inStockNumber==0" (click)="onAddToCart()" class="btn btn-warning"
                                                 style="color: black;border:1px solid black; padding: 10px 40px 10px 40px;">
                                             Add to Cart
                                         </button>

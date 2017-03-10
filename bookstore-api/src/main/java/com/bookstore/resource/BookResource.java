@@ -123,18 +123,6 @@ public class BookResource {
         return book;
     }
 
-    @RequestMapping("/{id}")
-    public ResponseEntity bookDetail(@PathVariable("id") Long id, Principal principal) {
-        if (principal != null) {
-            String username = principal.getName();
-            User user = userService.findByUsername(username);
-        }
-
-        Book book = bookService.findOne(id);
-
-        return new ResponseEntity("Book Found!", HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public ResponseEntity remove(
             @RequestBody String id, Model model
