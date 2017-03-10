@@ -10,7 +10,7 @@ import {MyProfileComponent} from './components/my-profile/my-profile.component';
 import {BookListComponent} from './components/book-list/book-list.component';
 import {BookDetailComponent} from './components/book-detail/book-detail.component';
 import {ShoppingCartComponent} from './components/shopping-cart/shopping-cart.component';
-
+import {OrderComponent} from './components/order/order.component';
 
 const appRoutes: Routes = [
   {
@@ -41,6 +41,10 @@ const appRoutes: Routes = [
   {
     path: 'shoppingCart',
     component: ShoppingCartComponent
+  },
+  {
+    path: 'order',
+    component: OrderComponent
   }
 ];
 
