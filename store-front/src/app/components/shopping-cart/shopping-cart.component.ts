@@ -25,7 +25,19 @@ export class ShoppingCartComponent implements OnInit {
     this.router.navigate(['/bookDetail', this.selectedBook.id]);
   }
 
-  ngOnInit() {
+  onRemoveCartItem(cartItem: CartItem) {
+    this.cartService.removeCartItem(cartItem.id).subscribe(
+        res=>{
+          console.log(res.text());
+          this.getCartItemList();
+        },
+        error=>{
+          console.log(error.text());
+        }
+      );
+  }
+
+  getCartItemList(){
     this.cartService.getCartItemList().subscribe(
         res=>{
           this.cartItemList = res.json();
@@ -35,6 +47,11 @@ export class ShoppingCartComponent implements OnInit {
           console.log(error.text());
         }
       );
+  }
+
+  ngOnInit() {
+    this.getCartItemList();
+    
 
     this.cartService.getShoppingCart().subscribe(
       res=>{

@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -83,5 +80,29 @@ public class ShoppingCartResource {
         shoppingCartService.updateShoppingCart(shoppingCart);
 
         return shoppingCart;
+    }
+
+    @RequestMapping("/removeItem")
+    public ResponseEntity removeItem(@RequestBody String id) {
+        cartItemService.removeCartItem(cartItemService.findById(Long.parseLong(id)));
+
+        return new ResponseEntity("Cart Item Removed Successfully!", HttpStatus.OK);
+
+    }
+
+    @RequestMapping("/updateCartItem")
+    public ResponseEntity updateShoppingCart(
+            @RequestBody HashMap<String, String> mapper
+    ) {
+        String cartItemId = mapper.get("cartItemId");
+        String qty = mapper.get("qty");
+
+        CartItem cartItem = cartItemService.findById(Long.parseLong(cartItemId));
+        cartItem.setQty(Integer.parseInt(qty));
+
+        cartItemService.updateCartItem(cartItem);
+
+        return new ResponseEntity("Cart Updated Successfully!", HttpStatus.OK);
+
     }
 }

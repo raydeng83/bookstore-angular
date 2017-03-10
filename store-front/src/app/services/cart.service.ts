@@ -37,4 +37,25 @@ export class CartService {
     return this.http.get(url, {headers : tokenHeader});
   }
 
+  updateShoppingCart(cartItemId:number, qty:number) {
+    let url = AppConst.serverPath+"/cart/removeItem";
+    let cartItemInfo = {
+      "cartItemId" : cartItemId,
+      "qty" : qty
+    }
+    let tokenHeader = new Headers ({
+      'x-auth-token' : localStorage.getItem("xAuthToken")
+    });
+    return this.http.post(url, cartItemInfo, {headers : tokenHeader});
+  }
+
+  removeCartItem(id:number) {
+    let url = AppConst.serverPath+"/cart/removeItem";
+    
+    let tokenHeader = new Headers ({
+      'x-auth-token' : localStorage.getItem("xAuthToken")
+    });
+    return this.http.post(url, id, {headers : tokenHeader});
+  }
+
 }
