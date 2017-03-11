@@ -172,7 +172,16 @@ export class OrderComponent implements OnInit {
         res=>{
           console.log(res.json());
           this.userShippingList=res.json();
-          this.emptyShippingList = false;
+          if(this.userShippingList.length) {
+            this.emptyShippingList = false;
+
+            for (let userShipping of this.userShippingList) {
+              if(userShipping.userShippingDefault) {
+                this.setShippingAddress(userShipping);
+                return;
+              }
+            }
+          }
         },
         error=>{
           console.log(error.text());
@@ -184,6 +193,17 @@ export class OrderComponent implements OnInit {
           console.log(res.json());
           this.userPaymentList=res.json();
           this.emptyPaymentList = false;
+
+          if(this.userPaymentList.length) {
+            this.emptyPaymentList = false;
+
+            for (let userPayment of this.userPaymentList) {
+              if(userPayment.defaultPayment) {
+                this.setPaymentMethod(userPayment);
+                return;
+              }
+            }
+          }
         },
         error=>{
           console.log(error.text());
