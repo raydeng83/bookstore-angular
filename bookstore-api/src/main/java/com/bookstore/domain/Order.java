@@ -31,12 +31,15 @@ public class Order implements Serializable {
     private List<CartItem> cartItemList;
 
     @OneToOne(cascade=CascadeType.ALL)
+    @JsonIgnore
     private ShippingAddress shippingAddress;
 
     @OneToOne(cascade=CascadeType.ALL)
+    @JsonIgnore
     private BillingAddress billingAddress;
 
     @OneToOne(cascade=CascadeType.ALL)
+    @JsonIgnore
     private Payment payment;
 
     @ManyToOne
@@ -129,5 +132,22 @@ public class Order implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderDate=" + orderDate +
+                ", shippingDate=" + shippingDate +
+                ", shippingMethod='" + shippingMethod + '\'' +
+                ", orderStatus='" + orderStatus + '\'' +
+                ", orderTotal=" + orderTotal +
+                ", cartItemList=" + cartItemList +
+                ", shippingAddress=" + shippingAddress +
+                ", billingAddress=" + billingAddress +
+                ", payment=" + payment +
+                ", user=" + user +
+                '}';
     }
 }

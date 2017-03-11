@@ -36,6 +36,7 @@ public class CartItem implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 
     public Long getId() {

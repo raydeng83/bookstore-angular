@@ -1,3 +1,5 @@
+import {CartItem} from "./cart-item";
+
 export class Order {
     public id:number;
     public orderDate: string;
@@ -5,4 +7,5 @@ export class Order {
     public shippingMethod: string;
     public orderStatus: string;
     public orderTotal: number;
+    public cartItemList: CartItem[];
 }

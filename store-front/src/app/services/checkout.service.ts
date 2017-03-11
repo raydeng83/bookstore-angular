@@ -29,4 +29,13 @@ export class CheckoutService {
     return this.http.post(url, order, {headers : tokenHeader});
   }
 
+  getUserOrder() {
+    let url = AppConst.serverPath+"/checkout/getUserOrder";
+    
+    let tokenHeader = new Headers ({
+      'x-auth-token' : localStorage.getItem("xAuthToken")
+    });
+    return this.http.get(url, {headers : tokenHeader});
+  }
+
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by z00382545 on 3/10/17.
@@ -23,6 +24,8 @@ import java.util.*;
 @RestController
 @RequestMapping("/checkout")
 public class CheckoutResource {
+
+    private Order order = new Order();
 
     @Autowired
     private JavaMailSender mailSender;
@@ -43,7 +46,7 @@ public class CheckoutResource {
     private MailConstructor mailConstructor;
 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
-    public ResponseEntity checkoutPost(
+    public Order checkoutPost(
             @RequestBody HashMap<String, Object> mapper,
             Principal principal
     ) {
@@ -78,7 +81,11 @@ public class CheckoutResource {
             estimatedDeliveryDate = today.plusDays(3);
         }
 
-        return new ResponseEntity("Order Checkout Successful!", HttpStatus.OK);
+        this.order = order;
+
+        return order;
 
     }
+
+
 }

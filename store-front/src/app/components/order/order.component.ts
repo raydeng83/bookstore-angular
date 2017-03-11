@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AppConst} from '../../constants/app-const';
 import {Book} from '../../models/book';
-import {Router} from "@angular/router";
+import {Router, NavigationExtras} from "@angular/router";
 import {CartService} from '../../services/cart.service';
 import {ShippingService} from '../../services/shipping.service';
 import {PaymentService} from '../../services/payment.service';
@@ -14,7 +14,7 @@ import {UserPayment} from '../../models/user-payment';
 import {UserBilling} from '../../models/user-billing';
 import {UserShipping} from '../../models/user-shipping';
 import {Payment} from '../../models/payment';
-
+import {Order} from '../../models/order';
 
 @Component({
   selector: 'app-order',
@@ -41,6 +41,7 @@ export class OrderComponent implements OnInit {
   private emptyPaymentList: boolean = true;
   private stateList: string[] = [];
   private shippingMethod:string;
+  private order:Order = new Order();
 
   constructor(
   	private router:Router, 
@@ -69,13 +70,13 @@ export class OrderComponent implements OnInit {
 
   getCartItemList(){
     this.cartService.getCartItemList().subscribe(
-        res=>{
-          this.cartItemList = res.json();
-          this.cartItemNumber = this.cartItemList.length;
-        },
-        error=>{
-          console.log(error.text());
-        }
+      res=>{
+        this.cartItemList = res.json();
+        this.cartItemNumber = this.cartItemList.length;
+      },
+      error=>{
+        console.log(error.text());
+      }
       );
   }
 
@@ -110,58 +111,65 @@ export class OrderComponent implements OnInit {
   	console.log("same as shipping")
 
   	if(checked) {
-  	this.billingAddress.billingAddressName = this.shippingAddress.shippingAddressName;
-  	this.billingAddress.billingAddressStreet1 = this.shippingAddress.shippingAddressStreet1;
-  	this.billingAddress.billingAddressStreet2 = this.shippingAddress.shippingAddressStreet2;
-  	this.billingAddress.billingAddressCity = this.shippingAddress.shippingAddressCity;
-  	this.billingAddress.billingAddressState = this.shippingAddress.shippingAddressState;
-  	this.billingAddress.billingAddressCountry = this.shippingAddress.shippingAddressCountry;
-  	this.billingAddress.billingAddressZipcode = this.shippingAddress.shippingAddressZipcode;
-  } else {
-  	this.billingAddress.billingAddressName = "";
-  	this.billingAddress.billingAddressStreet1 = "";
-  	this.billingAddress.billingAddressStreet2 = "";
-  	this.billingAddress.billingAddressCity = "";
-  	this.billingAddress.billingAddressState = "";
-  	this.billingAddress.billingAddressCountry = "";
-  	this.billingAddress.billingAddressZipcode = "";
-  }
+      this.billingAddress.billingAddressName = this.shippingAddress.shippingAddressName;
+      this.billingAddress.billingAddressStreet1 = this.shippingAddress.shippingAddressStreet1;
+      this.billingAddress.billingAddressStreet2 = this.shippingAddress.shippingAddressStreet2;
+      this.billingAddress.billingAddressCity = this.shippingAddress.shippingAddressCity;
+      this.billingAddress.billingAddressState = this.shippingAddress.shippingAddressState;
+      this.billingAddress.billingAddressCountry = this.shippingAddress.shippingAddressCountry;
+      this.billingAddress.billingAddressZipcode = this.shippingAddress.shippingAddressZipcode;
+    } else {
+      this.billingAddress.billingAddressName = "";
+      this.billingAddress.billingAddressStreet1 = "";
+      this.billingAddress.billingAddressStreet2 = "";
+      this.billingAddress.billingAddressCity = "";
+      this.billingAddress.billingAddressState = "";
+      this.billingAddress.billingAddressCountry = "";
+      this.billingAddress.billingAddressZipcode = "";
+    }
   }
 
   onSubmit(){
   	this.checkoutService.checkout(
-  			this.shippingAddress,
-  			this.billingAddress,
-  			this.payment,
-  			this.shippingMethod
-  		).subscribe(
+      this.shippingAddress,
+      this.billingAddress,
+      this.payment,
+      this.shippingMethod
+      ).subscribe(
       res=>{
-          console.log(res.text());
-        },
-        error=>{
-          console.log(error.text());
-        }
-    );
+        this.order=res.json();
+        console.log(this.order);
 
-  	this.router.navigate(['/orderSummary']);
-  }
+        let navigationExtras: NavigationExtras = {
+            queryParams: {
+                "order": JSON.stringify(this.order)
+            }
+        };
 
-  ngOnInit() {
-  	this.getCartItemList();
-    
+        this.router.navigate(['/orderSummary'], navigationExtras);
+      },
+      error=>{
+        console.log(error.text());
+      }
+      );
+    }
 
-    this.cartService.getShoppingCart().subscribe(
-      res=>{
+    ngOnInit() {
+      this.getCartItemList();
+
+
+      this.cartService.getShoppingCart().subscribe(
+        res=>{
           console.log(res.json());
           this.shoppingCart=res.json();
         },
         error=>{
           console.log(error.text());
         }
-    );
+        );
 
-    this.shippingService.getUserShippingList().subscribe(
-    	res=>{
+      this.shippingService.getUserShippingList().subscribe(
+        res=>{
           console.log(res.json());
           this.userShippingList=res.json();
           this.emptyShippingList = false;
@@ -169,10 +177,10 @@ export class OrderComponent implements OnInit {
         error=>{
           console.log(error.text());
         }
-    );
+        );
 
-    this.paymentService.getUserPaymentList().subscribe(
-    	res=>{
+      this.paymentService.getUserPaymentList().subscribe(
+        res=>{
           console.log(res.json());
           this.userPaymentList=res.json();
           this.emptyPaymentList = false;
@@ -180,20 +188,20 @@ export class OrderComponent implements OnInit {
         error=>{
           console.log(error.text());
         }
-    );
+        );
 
-    for (let s in AppConst.usStates) {
-    	this.stateList.push(s);
+      for (let s in AppConst.usStates) {
+        this.stateList.push(s);
+      }
+
+      this.payment.type="";
+      this.payment.expiryMonth="";
+      this.payment.expiryYear="";
+      this.billingAddress.billingAddressState="";
+      this.shippingAddress.shippingAddressState="";
+      this.shippingMethod="groundShipping";
     }
 
-    this.payment.type="";
-    this.payment.expiryMonth="";
-    this.payment.expiryYear="";
-    this.billingAddress.billingAddressState="";
-    this.shippingAddress.shippingAddressState="";
-    this.shippingMethod="groundShipping";
+
+
   }
-
-
-
-}
