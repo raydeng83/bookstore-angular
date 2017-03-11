@@ -21,6 +21,7 @@ import {Order} from '../../models/order';
 export class MyProfileComponent implements OnInit {
 
   private serverPath = AppConst.serverPath;
+  private dataFetched=false;
   private loginError:boolean = false;
   private loggedIn = false;
   private credential = {'username':'', 'password':''};
@@ -260,6 +261,8 @@ export class MyProfileComponent implements OnInit {
             break;
           }
         }
+
+        this.dataFetched=true;
       },
       error => {
         console.log(error);
@@ -303,6 +306,8 @@ export class MyProfileComponent implements OnInit {
 
     this.userShipping.userShippingState="";
     this.defaultShippingSet=false;
+
+
 
   }
 }
