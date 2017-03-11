@@ -12,6 +12,8 @@ import {BookDetailComponent} from './components/book-detail/book-detail.componen
 import {ShoppingCartComponent} from './components/shopping-cart/shopping-cart.component';
 import {OrderComponent} from './components/order/order.component';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import { HoursComponent } from './components/hours/hours.component';
+import { FaqComponent } from './components/faq/faq.component';
 
 
 const appRoutes: Routes = [
@@ -51,6 +53,14 @@ const appRoutes: Routes = [
   {
     path: 'orderSummary',
     component: OrderSummaryComponent
+  },
+  {
+    path: 'hours',
+    component: HoursComponent
+  },
+  {
+    path: 'faq',
+    component: FaqComponent
   }
 ];
 

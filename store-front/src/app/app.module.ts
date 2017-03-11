@@ -31,6 +31,9 @@ import { BookDetailComponent } from './components/book-detail/book-detail.compon
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { OrderComponent } from './components/order/order.component';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import { BestSellerComponent } from './components/best-seller/best-seller.component';
+import { HoursComponent } from './components/hours/hours.component';
+import { FaqComponent } from './components/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
     BookDetailComponent,
     ShoppingCartComponent,
     OrderComponent,
-    OrderSummaryComponent
+    OrderSummaryComponent,
+    BestSellerComponent,
+    HoursComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,
