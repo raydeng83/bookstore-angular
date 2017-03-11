@@ -132,4 +132,18 @@ public class BookResource {
         return new ResponseEntity("Remove Success!", HttpStatus.OK);
     }
 
+    @RequestMapping(value="/searchBook", method = RequestMethod.POST)
+    public List<Book> searchBook(
+            @RequestBody String keyword,
+            Principal principal
+    ) {
+        if (principal != null) {
+            String username = principal.getName();
+            User user = userService.findByUsername(username);
+        }
+
+        List<Book> bookList = bookService.blurrySearch(keyword);
+
+        return bookList;
+    }
 }

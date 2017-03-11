@@ -24,4 +24,12 @@ export class BookService {
     return this.http.get(url, {headers : tokenHeader});
   }
 
+  searchBook(keyword:string) {
+    let url = AppConst.serverPath+"/book/searchBook";
+    let tokenHeader = new Headers ({
+      'x-auth-token' : localStorage.getItem("xAuthToken")
+    });
+    return this.http.post(url, keyword, {headers : tokenHeader});
+  }
+
 }

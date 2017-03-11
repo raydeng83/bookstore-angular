@@ -99,7 +99,7 @@
                 </md-grid-tile>
             </md-grid-list>
             <md-input-container>
-                <textarea mdInput id="title" [(ngModel)]="newBook.description" name="description" placeholder="Description"></textarea>
+                <textarea mdInput id="title" [(ngModel)]="newBook.description" name="description" placeholder="Description" required></textarea>
             </md-input-container>
             Image &nbsp;
             <input id="title" type="file" id="bookImage" name="bookImage" (change)="uploadImageService.fileChangeEvent($event)">

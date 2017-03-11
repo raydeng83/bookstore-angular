@@ -9,9 +9,9 @@
         <div id="navbar">
             <ul class="nav navbar-nav navbar-left">
                 <li ><a md-button routerLink="/bookList" routerLinkActive="active">BOOK</a></li>
-                <form class="navbar-form" method="post">
+                <form (ngSubmit)="onSearchByTitle()" class="navbar-form" method="post">
                     <div class="form-group">
-                        <input type="text" name="keyword" class="form-control" placeholder="Book title" />
+                        <input type="text" name="searcyByTitle" [(ngModel)]="keyword" class="form-control" placeholder="Book title" />
                     </div>
                     <button type="submit" class="btn btn-default">Search</button>
                 </form>
