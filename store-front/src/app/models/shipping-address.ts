@@ -1,3 +1,5 @@
+import {Order} from "./order";
+
 export class ShippingAddress {
     public id:number;
     public shippingAddressName:string;
@@ -7,4 +9,5 @@ export class ShippingAddress {
     public shippingAddressState:string;
     public shippingAddressCountry:string;
     public shippingAddressZipcode:string;
+    public order:Order;
 }

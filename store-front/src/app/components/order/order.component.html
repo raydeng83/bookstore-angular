@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-8">
-            <h2 class="section-headline"><span>Shopping Cart</span></h2>
+            <h2 class="section-headline"><span>Checkout</span></h2>
         </div>
         <div class="col-xs-4">
             <a href="#"><img src="{{serverPath}}/image/logo.png" class="img-responsive" /></a>
@@ -294,16 +294,17 @@
                             </div>
                             <div class="panel-body ">
                                 <h4>Choose your shipping method:</h4>
-                                <div class="radio ">
+                                <div class="radio">
                                     <label>
-                                        <input type="radio" name="shippingMethod " value="groundShipping " checked="checked " /> Ground Shipping
+                                        <input type="radio" name="shippingMethod" value="groundShipping" [(ngModel)]="shippingMethod" /> Ground Shipping
                                     </label>
                                 </div>
-                                <div class="radio ">
+                                <div class="radio">
                                     <label>
-                                        <input type="radio" name="shippingMethod " value="premiumShipping " /> Premium Shipping
+                                        <input type="radio" name="shippingMethod" value="premiumShipping" [(ngModel)]="shippingMethod" /> Premium Shipping
                                     </label>
                                 </div>
+                                
                                 <div class="row ">
                                     <div class="col-xs-8 ">
                                         <h4>Products</h4></div>

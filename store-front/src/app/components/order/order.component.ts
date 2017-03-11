@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {CartService} from '../../services/cart.service';
 import {ShippingService} from '../../services/shipping.service';
 import {PaymentService} from '../../services/payment.service';
+import {CheckoutService} from '../../services/checkout.service';
 import {CartItem} from '../../models/cart-item';
 import {ShoppingCart} from '../../models/shopping-cart';
 import {ShippingAddress} from '../../models/shipping-address';
@@ -13,6 +14,7 @@ import {UserPayment} from '../../models/user-payment';
 import {UserBilling} from '../../models/user-billing';
 import {UserShipping} from '../../models/user-shipping';
 import {Payment} from '../../models/payment';
+
 
 @Component({
   selector: 'app-order',
@@ -38,12 +40,14 @@ export class OrderComponent implements OnInit {
   private emptyShippingList: boolean = true;
   private emptyPaymentList: boolean = true;
   private stateList: string[] = [];
+  private shippingMethod:string;
 
   constructor(
   	private router:Router, 
   	private cartService: CartService, 
   	private shippingService: ShippingService,
-  	private paymentService: PaymentService
+  	private paymentService: PaymentService,
+  	private checkoutService: CheckoutService
   	) { }
 
   onSelect(book:Book) {
@@ -87,26 +91,26 @@ export class OrderComponent implements OnInit {
 
   setPaymentMethod(userPayment: UserPayment) {
   	this.payment.type = userPayment.type;
-  	this.payment.cardName = userPayment.cardName;
   	this.payment.cardNumber = userPayment.cardNumber;
   	this.payment.expiryMonth = userPayment.expiryMonth;
   	this.payment.expiryYear = userPayment.expiryYear;
   	this.payment.cvc = userPayment.cvc;
   	this.payment.holderName = userPayment.holderName;
   	this.payment.defaultPayment = userPayment.defaultPayment;
-  	this.payment.billingAddress.billingAddressName = userPayment.userBilling.userBillingName;
-  	this.payment.billingAddress.billingAddressStreet1 = userPayment.userBilling.userBillingStreet1;
-  	this.payment.billingAddress.billingAddressStreet2 = userPayment.userBilling.userBillingStreet2;
-  	this.payment.billingAddress.billingAddressCity = userPayment.userBilling.userBillingCity;
-  	this.payment.billingAddress.billingAddressState = userPayment.userBilling.userBillingState;
-  	this.payment.billingAddress.billingAddressCountry = userPayment.userBilling.userBillingCountry;
-  	this.payment.billingAddress.billingAddressZipcode = userPayment.userBilling.userBillingZipcode;
+  	this.billingAddress.billingAddressName = userPayment.userBilling.userBillingName;
+  	this.billingAddress.billingAddressStreet1 = userPayment.userBilling.userBillingStreet1;
+  	this.billingAddress.billingAddressStreet2 = userPayment.userBilling.userBillingStreet2;
+  	this.billingAddress.billingAddressCity = userPayment.userBilling.userBillingCity;
+  	this.billingAddress.billingAddressState = userPayment.userBilling.userBillingState;
+  	this.billingAddress.billingAddressCountry = userPayment.userBilling.userBillingCountry;
+  	this.billingAddress.billingAddressZipcode = userPayment.userBilling.userBillingZipcode;
   }
 
   setBillingAsShipping(checked:boolean){
   	console.log("same as shipping")
 
   	if(checked) {
+  	this.billingAddress.billingAddressName = this.shippingAddress.shippingAddressName;
   	this.billingAddress.billingAddressStreet1 = this.shippingAddress.shippingAddressStreet1;
   	this.billingAddress.billingAddressStreet2 = this.shippingAddress.shippingAddressStreet2;
   	this.billingAddress.billingAddressCity = this.shippingAddress.shippingAddressCity;
@@ -114,6 +118,7 @@ export class OrderComponent implements OnInit {
   	this.billingAddress.billingAddressCountry = this.shippingAddress.shippingAddressCountry;
   	this.billingAddress.billingAddressZipcode = this.shippingAddress.shippingAddressZipcode;
   } else {
+  	this.billingAddress.billingAddressName = "";
   	this.billingAddress.billingAddressStreet1 = "";
   	this.billingAddress.billingAddressStreet2 = "";
   	this.billingAddress.billingAddressCity = "";
@@ -123,7 +128,23 @@ export class OrderComponent implements OnInit {
   }
   }
 
+  onSubmit(){
+  	this.checkoutService.checkout(
+  			this.shippingAddress,
+  			this.billingAddress,
+  			this.payment,
+  			this.shippingMethod
+  		).subscribe(
+      res=>{
+          console.log(res.text());
+        },
+        error=>{
+          console.log(error.text());
+        }
+    );
 
+  	this.router.navigate(['/orderSummary']);
+  }
 
   ngOnInit() {
   	this.getCartItemList();
@@ -165,12 +186,12 @@ export class OrderComponent implements OnInit {
     	this.stateList.push(s);
     }
 
-    this.payment.billingAddress = this.billingAddress;
     this.payment.type="";
     this.payment.expiryMonth="";
     this.payment.expiryYear="";
     this.billingAddress.billingAddressState="";
     this.shippingAddress.shippingAddressState="";
+    this.shippingMethod="groundShipping";
   }
 
 

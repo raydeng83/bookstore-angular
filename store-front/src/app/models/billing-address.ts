@@ -7,4 +7,5 @@ export class BillingAddress {
     public billingAddressState:string;
     public billingAddressCountry:string;
     public billingAddressZipcode:string;
+    public order: Order;
 }
