@@ -18,6 +18,8 @@ export class ShoppingCartComponent implements OnInit {
   private cartItemNumber: number;
   private shoppingCart: ShoppingCart = new ShoppingCart();
   private cartItemUpdated:boolean;
+  private emptyCart: boolean;
+  private notEnoughStock: boolean;
 
   constructor(private router:Router, private cartService: CartService) { }
 
@@ -74,6 +76,25 @@ export class ShoppingCartComponent implements OnInit {
           console.log(error.text());
         }
     );
+  }
+
+  onCheckout() {
+    if (this.cartItemNumber==0) {
+      this.emptyCart=true;
+    } else {
+
+      for (let item of this.cartItemList) {
+        if(item.qty > item.book.inStockNumber) {
+          console.log("not enough stock");
+
+          this.notEnoughStock = true;
+
+          return;
+        }
+      }
+
+      this.router.navigate(['/order']);
+    }
   }
 
   ngOnInit() {
