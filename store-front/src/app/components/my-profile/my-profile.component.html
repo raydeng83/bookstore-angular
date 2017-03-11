@@ -84,8 +84,8 @@
                                     <tbody>
                                     <tr *ngFor="let order of orderList">
                                         <td>
-                                            <a th:href="@{/orderDetail(id=${order.id})}"><span
-                                                    th:text="${order.orderDate}"></span></a>
+                                            <a class="pointer" (click)="onDisplayOrder(order)"><span
+                                                   >{{order.orderDate}}</span></a>
                                         </td>
                                         <td>{{order.id}}</td>
                                         <td>{{order.orderTotal}}</td>

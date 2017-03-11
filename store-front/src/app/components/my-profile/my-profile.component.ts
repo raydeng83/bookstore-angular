@@ -5,10 +5,13 @@ import {LoginService} from "../../services/login.service";
 import {UserService} from "../../services/user.service";
 import {PaymentService} from "../../services/payment.service";
 import {ShippingService} from "../../services/shipping.service";
+import {OrderService} from "../../services/order.service";
 import {User} from '../../models/user';
 import {UserPayment} from '../../models/user-payment';
 import {UserBilling} from '../../models/user-billing';
 import {UserShipping} from '../../models/user-shipping';
+import {Order} from '../../models/order';
+
 
 @Component({
   selector: 'app-my-profile',
@@ -53,11 +56,16 @@ export class MyProfileComponent implements OnInit {
   private defaultUserShippingId:number;
   private defaultShippingSet: boolean;
 
+  private orderList: Order[] = [];
+  private order:Order = new Order();
+  private displayOrderDetail:boolean;
+
   constructor (
     private paymentService:PaymentService, 
     private shippingService:ShippingService,
     private loginService: LoginService, 
     private userService: UserService, 
+    private orderService: OrderService,
     private router: Router
     ){
   }
@@ -134,6 +142,12 @@ export class MyProfileComponent implements OnInit {
         if (errorMessage==="Incorrect current password!") this.incorrectPassword=true;
       }
       );
+  }
+
+  onDisplayOrder (order:Order) {
+    console.log(order);
+    this.order=order;
+    this.displayOrderDetail=true;
   }
 
   onNewPayment () {
@@ -260,6 +274,15 @@ export class MyProfileComponent implements OnInit {
       },
       error => {
         this.loggedIn=false;
+      }
+      );
+
+    this.orderService.getOrderList().subscribe(
+      res => {
+        this.orderList = res.json();
+      },
+      error => {
+        console.log(error.text());
       }
       );
 

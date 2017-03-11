@@ -1,5 +1,7 @@
 package com.bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -24,6 +26,7 @@ public class BillingAddress implements Serializable{
     private String billingAddressZipcode;
 
     @OneToOne
+    @JsonIgnore
     private Order order;
 
     public Long getId() {

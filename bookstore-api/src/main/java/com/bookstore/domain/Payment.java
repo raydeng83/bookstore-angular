@@ -1,5 +1,7 @@
 package com.bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -24,6 +26,7 @@ public class Payment implements Serializable {
     private boolean defaultPayment;
 
     @OneToOne
+    @JsonIgnore
     private Order order;
 
     public Long getId() {

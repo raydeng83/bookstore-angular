@@ -31,15 +31,12 @@ public class Order implements Serializable {
     private List<CartItem> cartItemList;
 
     @OneToOne(cascade=CascadeType.ALL)
-    @JsonIgnore
     private ShippingAddress shippingAddress;
 
     @OneToOne(cascade=CascadeType.ALL)
-    @JsonIgnore
     private BillingAddress billingAddress;
 
     @OneToOne(cascade=CascadeType.ALL)
-    @JsonIgnore
     private Payment payment;
 
     @ManyToOne

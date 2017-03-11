@@ -21,6 +21,8 @@ import { ShippingService } from './services/shipping.service';
 import { BookService } from './services/book.service';
 import { CartService } from './services/cart.service';
 import { CheckoutService } from './services/checkout.service';
+import { OrderService } from './services/order.service';
+
 
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
@@ -59,7 +61,8 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
     ShippingService,
     BookService,
     CartService,
-    CheckoutService
+    CheckoutService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })
