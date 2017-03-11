@@ -274,6 +274,8 @@ export class MyProfileComponent implements OnInit {
       },
       error => {
         this.loggedIn=false;
+        console.log("inactive session");
+        this.router.navigate(['/myAccount']);
       }
       );
 

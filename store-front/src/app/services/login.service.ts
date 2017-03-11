@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {AppConst} from '../constants/app-const';
-
+import {Router} from "@angular/router";
 
 @Injectable()
 export class LoginService {
   private serverPath:string = AppConst.serverPath;
 
-  constructor (private http: Http) {}
+  constructor (private http: Http, private router:Router) {}
 
   sendCredential(username: string, password: string) {
     let url = this.serverPath+"/token";
