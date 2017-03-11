@@ -41,29 +41,33 @@ public class LoginResource {
         return new ResponseEntity("Logout success.",HttpStatus.OK);
     }
 
-    @RequestMapping(value="login", method = RequestMethod.POST)
-    public String loginPost(@RequestBody Map<String, String> json) throws
-            ServletException {
-        if(json.get("username") == null || json.get("password") ==null) {
-            throw new ServletException("Please fill in username and password");
-        }
-
-        String username = json.get("username");
-        String password = json.get("password");
-
-        User user= userService.findByUsername(username);
-        if (user==null) {
-            throw new ServletException("User name not found.");
-        }
-
-        String pwd = user.getPassword();
-
-        if(!password.equals(pwd)) {
-            throw new ServletException("Invalid login. Please check your name and password");
-        }
-
-        return "login success";
-    }
+//    @RequestMapping(value="login", method = RequestMethod.POST)
+//    public String loginPost(
+//            @RequestBody Map<String, String> json,
+//            HttpServletRequest request
+//    ) throws
+//            ServletException {
+//        if(json.get("username") == null || json.get("password") ==null) {
+//            throw new ServletException("Please fill in username and password");
+//        }
+//
+//        String username = json.get("username");
+//        String password = json.get("password");
+//
+//        User user= userService.findByUsername(username);
+//        if (user==null) {
+//            throw new ServletException("User name not found.");
+//        }
+//
+//        String pwd = user.getPassword();
+//
+//        if(!password.equals(pwd)) {
+//            throw new ServletException("Invalid login. Please check your name and password");
+//        }
+//
+//
+//        return "login success";
+//    }
 
     @RequestMapping(value = "/user/logout", method = RequestMethod.POST)
     public String logout() {
@@ -90,7 +94,15 @@ public class LoginResource {
 
     @RequestMapping("/token")
     @ResponseBody
-    public Map<String,String> token(HttpSession session) {
+    public Map<String,String> token(HttpSession session, HttpServletRequest request) {
+        System.out.println(request.getRemoteHost());
+
+        String remoteHost = request.getRemoteHost();
+        int portNumber = request.getRemotePort();
+
+        System.out.println(remoteHost+":"+portNumber);
+        System.out.println(request.getRemoteAddr());
+
         return Collections.singletonMap("token", session.getId());
     }
 }
