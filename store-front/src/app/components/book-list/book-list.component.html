@@ -12,17 +12,29 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-9">
-            <table class="table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+            <table class="table" [mfData]="bookList | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
                 <thead>
                     <tr>
                         <th colspan="5">
-                            Filter by name:
-                            <input class="form-control" [(ngModel)]="filterQuery" />
+                            <div class="row">
+                                <div class="col-md-9">
+                                    Filter by Title:
+                                    <input class="form-control" [(ngModel)]="filterQuery" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="label-control">Rows on page</label>
+                                    <select class="form-control input-sm" [(ngModel)]="rowsOnPage">
+                                        <option [ngValue]="5">5</option>
+                                        <option [ngValue]="10">10</option>
+                                        <option [ngValue]="15">15</option>
+                                    </select>
+                                </div>
+                            </div>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let book of bookList">
+                    <tr *ngFor="let book of mf.data">
                         <div class="row">
                             <div class="col-md-3">
                                 <a href="#">

@@ -1,4 +1,4 @@
-export class AppConst implements OnInit {
+export class AppConst{
    public static serverPath='http://127.0.0.1:8181';
 
    public static usStates = {
@@ -62,15 +62,5 @@ export class AppConst implements OnInit {
     "WI": "Wisconsin",
     "WY": "Wyoming"
 }
-	constructor () {
-		console.log("test");
-		for (let s in this.usStates) {
-			this.stateList.push(s);
-			console.log(s);
-		}
-	}
-
-	ngOnInit() {
-		
-	}
+	
 }
